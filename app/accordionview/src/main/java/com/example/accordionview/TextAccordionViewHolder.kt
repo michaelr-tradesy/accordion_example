@@ -12,7 +12,7 @@ import android.widget.TextView
  * All view holders that subclass this component must contain a title and details in the view.
  * This component will set the title and details of the provided view.
  */
-open class TextAccordionViewHolder
+internal open class TextAccordionViewHolder
 internal constructor(v: View) : DefaultAccordionViewHolder(v) {
 
     private val title: TextView = v.findViewById(R.id.title)

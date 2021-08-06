@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
  * This method uses the details of the model, which is passed in as a parameter,
  * in order to load this view.
  */
-class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val imageView: ImageView = v.findViewById(R.id.imageView)
     private val imageViewWidth = 256

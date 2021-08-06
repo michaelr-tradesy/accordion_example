@@ -9,5 +9,5 @@ import android.view.View
  * This component serves as our accordion view. For models in the list that are expandable,
  * this component provide the ability to dynamically expand and collapse sub-lists.
  */
-class CategoryAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+internal class CategoryAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 }

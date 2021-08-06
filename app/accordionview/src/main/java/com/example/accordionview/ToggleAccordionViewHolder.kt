@@ -10,7 +10,7 @@ import android.widget.ToggleButton
  * This component serves as our accordion view. For models in the list that are expandable,
  * this component provide the ability to dynamically expand and collapse sub-lists.
  */
-class ToggleAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+internal class ToggleAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val toggleButton: ToggleButton = v.findViewById(R.id.toggleButton)
 

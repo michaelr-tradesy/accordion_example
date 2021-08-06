@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
  * This component serves as our accordion view. For models in the list that are expandable,
  * this component provide the ability to dynamically expand and collapse sub-lists.
  */
-class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val disclosure: ImageView = v.findViewById(R.id.disclosure)
 

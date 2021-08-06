@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
  * All view holders that subclass this component must contain a title and details in the view.
  * This component will set the title and details of the provided view.
  */
-open class DefaultAccordionViewHolder
+internal open class DefaultAccordionViewHolder
 internal constructor(v: View) : RecyclerView.ViewHolder(v) {
 
     var isAnimationEnabled: Boolean = true

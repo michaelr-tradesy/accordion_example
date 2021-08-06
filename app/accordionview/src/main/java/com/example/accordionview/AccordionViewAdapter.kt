@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @since 2.18
  * This component serves as the adapter for our Accordion View
  */
-class AccordionViewAdapter(
+internal class AccordionViewAdapter(
     private val list: List<AccordionViewModel> = listOf(),
     private val callback: (AccordionViewModel) -> Unit = { _ -> }
 ) : RecyclerView.Adapter<DefaultAccordionViewHolder>() {
@@ -40,7 +40,7 @@ class AccordionViewAdapter(
         val type = AccordionViewModel.Type.valueOf(viewType)
         val layout = when(type) {
             AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
-            AccordionViewModel.Type.Checkmark -> R.layout.view_holder_accordion_checkmark
+            AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkmark
             AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
             AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
             AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
@@ -55,7 +55,7 @@ class AccordionViewAdapter(
             )
         return when(type) {
             AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
-            AccordionViewModel.Type.Checkmark -> CheckboxAccordionViewHolder(view)
+            AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
             AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
             AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
             AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)

@@ -16,13 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         accordionView = findViewById(R.id.accordionView)
-        accordionView.onCreate()
     }
 
     override fun onStart() {
         super.onStart()
 
         val list: List<AccordionViewModel> = generateRandomModels(abs(Random.nextInt()) %100)
+        accordionView.setCallback {
+            println("Accordion View Model Selected: $it")
+        }
         accordionView.onListChanged(list)
     }
 

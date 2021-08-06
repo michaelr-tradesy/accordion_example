@@ -26,12 +26,14 @@ class AccordionView @JvmOverloads constructor(
     private lateinit var recyclerView: RecyclerView
     private lateinit var accordionViewAdapter: AccordionViewAdapter
     private var list: MutableList<AccordionViewModel> = mutableListOf()
+    private var callback: (AccordionViewModel) -> Unit = { _ -> }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_accordion_view, this)
 
         loadViewAttributes(context, attrs, defStyle)
         bindView()
+        onCreate()
     }
 
     /**
@@ -40,7 +42,7 @@ class AccordionView @JvmOverloads constructor(
      * @since 2.18
      * This method is to be called in correlation with the View::onCreate().
      */
-    fun onCreate() {
+    private fun onCreate() {
         val linearLayoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
@@ -65,13 +67,14 @@ class AccordionView @JvmOverloads constructor(
      * We will also save the most recent selection.
      */
     private fun onModelSelected(accordionViewModel: AccordionViewModel) {
-        println("accordionViewModel=[$accordionViewModel]")
         selAccordionViewModel = accordionViewModel
         accordionViewModel.isExpanded = !accordionViewModel.isExpanded
         accordionViewAdapter.isAnimationEnabled = accordionViewModel.isExpanded
 
         val index = accordionViewAdapter.indexOf(accordionViewModel)
         val totalChildren = accordionViewModel.children.size
+
+        callback.invoke(accordionViewModel)
 
         if (accordionViewModel.canCollapse && accordionViewModel.isExpanded) {
             accordionViewAdapter.notifyItemRangeInserted(index + 1, totalChildren)
@@ -91,6 +94,17 @@ class AccordionView @JvmOverloads constructor(
         this.list.clear()
         this.list.addAll(list)
         recyclerView.adapter?.notifyItemRangeChanged(0, list.size - 1)
+    }
+
+    /**
+     * @name onListChanged
+     * @author Coach Roebuck
+     * @since 2.18
+     * This serves as the setter for the callback property.
+     * @param callback The callback block to invoke
+     */
+    fun setCallback(callback: (AccordionViewModel) -> Unit) {
+        this.callback = callback
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.*
  * This component serves as our accordion view. For models in the list that are expandable,
  * this component provide the ability to dynamically expand and collapse sub-lists.
  */
-class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v) {
+internal class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v) {
 
     /**
      * This indicator instructs the text watcher to ignore changes in the value if set.

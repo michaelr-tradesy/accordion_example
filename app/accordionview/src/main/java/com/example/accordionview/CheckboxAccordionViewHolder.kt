@@ -10,7 +10,7 @@ import android.widget.CheckBox
  * This component serves as our accordion view. For models in the list that are expandable,
  * this component provide the ability to dynamically expand and collapse sub-lists.
  */
-class CheckboxAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+internal class CheckboxAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val checkbox: CheckBox = v.findViewById(R.id.checkbox)
 
