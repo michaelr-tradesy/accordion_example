@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.17447916666666666" />
+        <entry key="app/accordionview/src/main/res/drawable/view_holder_background_pressed.xml" value="0.17552083333333332" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_category.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_checkmark.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_color.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_expandable.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_price.xml" value="0.35789473684210527" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_text.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_toggle.xml" value="0.159375" />
+        <entry key="app/src/main/res/drawable/disclosure.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/drawable/ic_circle_background.xml" value="0.25555555555555554" />
+        <entry key="app/src/main/res/drawable/ic_disclosure.xml" value="0.25555555555555554" />
+        <entry key="app/src/main/res/drawable/view_holder_background.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/drawable/view_holder_background_default.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/drawable/view_holder_background_pressed.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/drawable/view_holder_background_selected.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/layout/view_holder_accordion.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_category.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_checkmark.xml" value="0.15260416666666668" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_color.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_default.xml" value="0.15260416666666668" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_expandable.xml" value="0.2115036231884058" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_price.xml" value="0.15260416666666668" />
+        <entry key="app/src/main/res/layout/view_holder_accordion_toggle.xml" value="0.45" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

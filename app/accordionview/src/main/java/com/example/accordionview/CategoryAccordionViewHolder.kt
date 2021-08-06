@@ -1,0 +1,13 @@
+package com.example.accordionview
+
+import android.view.View
+
+/**
+ * @name AccordionView
+ * @author Coach Roebuck
+ * @since 2.18
+ * This component serves as our accordion view. For models in the list that are expandable,
+ * this component provide the ability to dynamically expand and collapse sub-lists.
+ */
+class CategoryAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
+}
