@@ -5,4 +5,5 @@
     <string name="color_view">Color View</string>
     <string name="group_view">Group View</string>
     <string name="alphabetical_view">Alphabetical View</string>
+    <string name="two_column_view">Two Column View</string>
 </resources>

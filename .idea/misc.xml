@@ -19,6 +19,8 @@
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_price.xml" value="0.35789473684210527" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_text.xml" value="0.159375" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_toggle.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_two_column_details.xml" value="0.19202898550724637" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_two_column_header.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/btn_dark_colors.xml" value="0.1671875" />
         <entry key="app/src/main/res/drawable/btn_light_colors.xml" value="0.1671875" />
         <entry key="app/src/main/res/drawable/disclosure.xml" value="0.17552083333333332" />

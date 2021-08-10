@@ -35,6 +35,10 @@ internal class AccordionViewAdapter(
      * Binds the given View to the position.
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
+     * We will first inflate the appropriate layout for the specified view type.
+     * Then we will instantiate the appropriate view holder.
+     * It is possible for the same layout to be applied to the same view holder
+     * (e.g. at the time of creation, the Two column text view holder).
      * @param parent The ViewGroup into which the new View will be added after it is bound to
      *               an adapter position.
      * @param viewType The view type of the new View.
@@ -53,6 +57,8 @@ internal class AccordionViewAdapter(
             AccordionViewModel.Type.Price -> R.layout.view_holder_accordion_price
             AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
             AccordionViewModel.Type.Toggle -> R.layout.view_holder_accordion_toggle
+            AccordionViewModel.Type.TwoColumnHeader -> R.layout.view_holder_accordion_two_column_header
+            AccordionViewModel.Type.TwoColumnDetails -> R.layout.view_holder_accordion_two_column_details
         }
         val view = LayoutInflater.from(parent.context)
             .inflate(
@@ -66,11 +72,13 @@ internal class AccordionViewAdapter(
             AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
             AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)
             AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
-            AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
             AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
             AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)
             AccordionViewModel.Type.Price -> PriceAccordionViewHolder(view)
+            AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
             AccordionViewModel.Type.Toggle -> ToggleAccordionViewHolder(view)
+            AccordionViewModel.Type.TwoColumnHeader,
+            AccordionViewModel.Type.TwoColumnDetails -> TwoColumnTextAccordionViewHolder(view)
         }
     }
 
@@ -105,7 +113,8 @@ internal class AccordionViewAdapter(
                 AccordionViewModel.Type.Header -> {
                     this.isCurrentlyAlternatingBackgroundColor = false
                 }
-                AccordionViewModel.Type.Expandable -> {
+                AccordionViewModel.Type.Expandable,
+                AccordionViewModel.Type.TwoColumnHeader  -> {
                     this.isCurrentlyAlternatingBackgroundColor = true
                 }
                 else -> {
@@ -134,7 +143,8 @@ internal class AccordionViewAdapter(
     private fun canSetDefaultBackground(type: AccordionViewModel.Type?): Boolean {
         return !(type == AccordionViewModel.Type.Header
                 || type == AccordionViewModel.Type.Expandable
-                || type == AccordionViewModel.Type.Color)
+                || type == AccordionViewModel.Type.Color
+                || type == AccordionViewModel.Type.TwoColumnHeader)
     }
 
     /**

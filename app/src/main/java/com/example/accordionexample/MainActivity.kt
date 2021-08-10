@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val list: List<AccordionViewModel> = generateRandomModels(abs(Random.nextInt()) %100)
+        val list: List<AccordionViewModel> = generateRandomModels(abs(Random.nextInt()) % 100)
         accordionView.setCallback {
             println("Accordion View Model Selected: $it")
         }
@@ -56,11 +56,34 @@ class MainActivity : AppCompatActivity() {
                 onGroupList(item)
             }
             R.id.alphabetical_view -> {
-                accordionView.setTotalColumns(1)
-                showToast(item.title.toString())
+                onAlphabeticalList(item)
+            }
+            R.id.two_column_view -> {
+                onTwoColumnList(item)
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun onTwoColumnList(item: MenuItem) {
+        val size: Int = abs(Random.nextInt()) % 100
+        val list: MutableList<AccordionViewModel> = mutableListOf(
+            generateRandomModel(type = AccordionViewModel.Type.TwoColumnHeader)
+        )
+
+        for (i in 1..size) {
+            list.add(generateRandomModel(type = AccordionViewModel.Type.TwoColumnDetails))
+        }
+
+        accordionView.setTotalColumns(1)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
+        accordionView.onListChanged(list)
+        showToast(item.title.toString())
+    }
+
+    private fun onAlphabeticalList(item: MenuItem) {
+        accordionView.setTotalColumns(1)
+        showToast(item.title.toString())
     }
 
     private fun onGroupList(item: MenuItem) {
@@ -104,9 +127,9 @@ class MainActivity : AppCompatActivity() {
     private fun generateRandomColorModels(size: Int): List<AccordionViewModel> {
         val list: MutableList<AccordionViewModel> = mutableListOf()
 
-        for(i in 1..size) {
+        for (i in 1..size) {
             val type = AccordionViewModel.Type.Color
-            val isMultiColored = if(type == AccordionViewModel.Type.Color) {
+            val isMultiColored = if (type == AccordionViewModel.Type.Color) {
                 Random.nextBoolean()
             } else false
             list.add(generateRandomModel(type = type, isMultiColored = isMultiColored))
@@ -117,9 +140,10 @@ class MainActivity : AppCompatActivity() {
     private fun generateGroupRandomModels(size: Int): List<AccordionViewModel> {
         val list: MutableList<AccordionViewModel> = mutableListOf()
 
-        for(i in 1..size) {
+        for (i in 1..size) {
             val type = AccordionViewModel.Type.Header
-            val children: List<AccordionViewModel> = generateRandomModels(abs(Random.nextInt()) %10, 1)
+            val children: List<AccordionViewModel> =
+                generateRandomModels(abs(Random.nextInt()) % 10, 1)
 
             list.add(generateRandomModel(children = children, type = type))
         }
@@ -140,23 +164,26 @@ class MainActivity : AppCompatActivity() {
             AccordionViewModel.Type.Checkmark,
             AccordionViewModel.Type.Price,
             AccordionViewModel.Type.Text,
-            AccordionViewModel.Type.Toggle
+            AccordionViewModel.Type.Toggle,
+            AccordionViewModel.Type.TwoColumnDetails
         )
 
-        for(i in 1..size) {
-            val type = if(canCollapse) {
+        for (i in 1..size) {
+            val type = if (canCollapse) {
                 AccordionViewModel.Type.Expandable
             } else {
                 preferredType ?: run {
-                    val index = abs(Random.nextInt()%types.size)
+                    val index = abs(Random.nextInt() % types.size)
                     types[index]
                 }
             }
-            val children: List<AccordionViewModel> = if(canCollapse) {
-                generateRandomModels(abs(Random.nextInt()) %10, level + 1)
-            } else { listOf() }
+            val children: List<AccordionViewModel> = if (canCollapse) {
+                generateRandomModels(abs(Random.nextInt()) % 10, level + 1)
+            } else {
+                listOf()
+            }
 
-            val isMultiColored = if(type == AccordionViewModel.Type.Color) {
+            val isMultiColored = if (type == AccordionViewModel.Type.Color) {
                 Random.nextBoolean()
             } else false
             list.add(generateRandomModel(children, canCollapse, type, isMultiColored))
@@ -170,15 +197,23 @@ class MainActivity : AppCompatActivity() {
         type: AccordionViewModel.Type,
         isMultiColored: Boolean = false
     ): AccordionViewModel {
-        val title = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) %12 + 1)
-        val details = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) %128)
+        val title =
+            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+        val details =
+            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
+        val subTitle =
+            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+        val subDetails =
+            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
         return AccordionViewModel(
             title = title,
             details = details,
             children = children,
             type = type,
             isMultiColored = isMultiColored,
-            canCollapse = canCollapse
+            canCollapse = canCollapse,
+            subTitle = subTitle,
+            subDetails = subDetails,
         )
     }
 }

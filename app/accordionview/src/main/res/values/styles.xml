@@ -57,6 +57,13 @@
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
+    <style name="AccordionView.Title.Centered">
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="AccordionView.Title.Centered.PlainText">
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="AccordionView.Details">
         <item name="android:textAlignment">viewStart</item>
         <item name="android:ellipsize">end</item>
@@ -64,4 +71,12 @@
         <item name="android:textStyle">italic</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
+
+    <style name="AccordionView.Details.Centered">
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="AccordionView.Details.Centered.PlainText">
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

@@ -36,6 +36,14 @@ data class AccordionViewModel(
      */
     val details: String? = null,
     /**
+     * A secondary title of this model to display in the corresponding view.
+     */
+    val subTitle: String? = null,
+    /**
+     * Secondary details of this model to display in the corresponding view.
+     */
+    val subDetails: String? = null,
+    /**
      * This displays the type of view to load into the accordion view
      * @see com.example.accordionview.AccordionViewModel.Type
      */
@@ -109,7 +117,22 @@ data class AccordionViewModel(
         /**
          * A Toggle, consisting of a title, details, and an ON/OFF toggle button.
          */
-        Toggle;
+        Toggle,
+
+        /**
+         * This item contains two columns of information in the same view.
+         * Both columns will consists of a title and details.
+         * Because this view is treated as a header,
+         * alternating colors will not be applied to this view.
+         */
+        TwoColumnHeader,
+
+        /**
+         * This item contains two columns of information in the same view.
+         * Both columns will consists of a title and details.
+         * Alternating colors will be applied to this view.
+         */
+        TwoColumnDetails;
 
         companion object {
             fun valueOf(index: Int): Type {

@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/rangeGuideline"
+        android:id="@+id/centerGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:labelFor="@+id/minPrice"
         android:padding="@dimen/padding_16dp"
-        app:layout_constraintEnd_toStartOf="@id/rangeGuideline"
+        app:layout_constraintEnd_toStartOf="@id/centerGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -52,7 +52,7 @@
         android:labelFor="@+id/maxPrice"
         android:padding="@dimen/padding_16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/rangeGuideline"
+        app:layout_constraintStart_toEndOf="@id/centerGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
