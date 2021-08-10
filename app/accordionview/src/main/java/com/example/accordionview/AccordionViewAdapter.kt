@@ -1,7 +1,9 @@
 package com.example.accordionview
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -14,6 +16,9 @@ internal class AccordionViewAdapter(
     private val list: List<AccordionViewModel> = listOf(),
     private val callback: (AccordionViewModel) -> Unit = { _ -> }
 ) : RecyclerView.Adapter<DefaultAccordionViewHolder>() {
+
+    private var isAlternatingRowBackgroundColorsEnabled: Boolean = false
+    private var isCurrentlyAlternatingBackgroundColor = true
 
     /**
      * @name isAnimationEnabled
@@ -42,9 +47,10 @@ internal class AccordionViewAdapter(
             AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
             AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkmark
             AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
-            AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
+            AccordionViewModel.Type.Header -> R.layout.view_holder_accordion_header
             AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
             AccordionViewModel.Type.Price -> R.layout.view_holder_accordion_price
+            AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
             AccordionViewModel.Type.Toggle -> R.layout.view_holder_accordion_toggle
         }
         val view = LayoutInflater.from(parent.context)
@@ -53,11 +59,13 @@ internal class AccordionViewAdapter(
                 parent,
                 false
             )
+
         return when(type) {
             AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
             AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
             AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
             AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
+            AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
             AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)
             AccordionViewModel.Type.Price -> PriceAccordionViewHolder(view)
             AccordionViewModel.Type.Toggle -> ToggleAccordionViewHolder(view)
@@ -79,6 +87,32 @@ internal class AccordionViewAdapter(
         val model = getModel(position)
         holder.isAnimationEnabled = isAnimationEnabled
         holder.bind(model, callback)
+        val type = model?.type
+
+        println("position=[$position] type=[$type] " +
+                "isAlternatingRowBackgroundColorsEnabled=[${this.isAlternatingRowBackgroundColorsEnabled}]" +
+                " isCurrentlyAlternatingBackgroundColor=[${this.isCurrentlyAlternatingBackgroundColor}]")
+
+        if(this.isAlternatingRowBackgroundColorsEnabled) {
+            when (type) {
+                AccordionViewModel.Type.Header -> {
+                    this.isCurrentlyAlternatingBackgroundColor = false
+                }
+                AccordionViewModel.Type.Expandable -> {
+                    this.isCurrentlyAlternatingBackgroundColor = true
+                }
+                else -> {
+                    if(this.isCurrentlyAlternatingBackgroundColor) {
+                        holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.header_background_text_color))
+                    } else {
+                        holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                    }
+                    this.isCurrentlyAlternatingBackgroundColor = !this.isCurrentlyAlternatingBackgroundColor
+                }
+            }
+        } else if(!(type == AccordionViewModel.Type.Header || type == AccordionViewModel.Type.Expandable)) {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+        }
     }
 
     /**
@@ -119,6 +153,18 @@ internal class AccordionViewAdapter(
     }
 
     /**
+     * @name setUsesAlternatingRowBackgroundColors
+     * @author Coach Roebuck
+     * @since 2.18
+     * Sets the ability to use alternating row background colors.
+     * @param value true or false
+     */
+    fun setIsAlternatingRowBackgroundColorsEnabled(value: Boolean) {
+        this.isAlternatingRowBackgroundColorsEnabled = value
+        this.isCurrentlyAlternatingBackgroundColor = this.isAlternatingRowBackgroundColorsEnabled
+    }
+
+    /**
      * @name indexOf
      * @author Coach Roebuck
      * @since 2.18
@@ -135,7 +181,7 @@ internal class AccordionViewAdapter(
             if(it == accordionViewModel) {
                 return total
             }
-            total += 1 + if (it.isExpanded) {
+            total += 1 + if (isExpanded(it)) {
                 val pair = indexOfChild(accordionViewModel, it)
                 indexfound = pair.second
                 pair.first
@@ -191,7 +237,7 @@ internal class AccordionViewAdapter(
         var total = 0
 
         list.map {
-            total += 1 + if (it.isExpanded) {
+            total += 1 + if (isExpanded(it)) {
                 totalChildren(it)
             } else {
                 0
@@ -235,7 +281,7 @@ internal class AccordionViewAdapter(
             if (total == position) {
                 model = it
                 total += 1
-            } else if (total < position && it.isExpanded) {
+            } else if (total < position && isExpanded(it)) {
                 val pair: Pair<Int, AccordionViewModel?> = getModelChild(position, total + 1, it)
                 total = pair.first
                 model = pair.second
@@ -273,7 +319,7 @@ internal class AccordionViewAdapter(
             if (total == position) {
                 model = it
                 total += 1
-            } else if (total < position && it.isExpanded) {
+            } else if (total < position && isExpanded(it)) {
                 total += 1
                 val pair = getModelChild(position, total, it)
                 total = pair.first
@@ -285,4 +331,7 @@ internal class AccordionViewAdapter(
 
         return Pair(total, model)
     }
+
+    private fun isExpanded(model: AccordionViewModel): Boolean =
+        model.isExpanded || model.type == AccordionViewModel.Type.Header
 }

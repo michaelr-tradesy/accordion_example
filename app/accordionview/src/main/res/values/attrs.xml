@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="AccordionView">
         <attr name="alternativeButtonContentDescription" format="string" localization="suggested" />
-        <attr name="accordionPadding" format="dimension" />
+        <attr name="padding" format="dimension" />
+        <attr name="columns" format="integer" />
     </declare-styleable>
 </resources>

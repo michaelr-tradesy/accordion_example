@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -27,6 +28,7 @@ class AccordionView @JvmOverloads constructor(
     private lateinit var accordionViewAdapter: AccordionViewAdapter
     private var list: MutableList<AccordionViewModel> = mutableListOf()
     private var callback: (AccordionViewModel) -> Unit = { _ -> }
+    private var totalColumns: Int = 1
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_accordion_view, this)
@@ -43,12 +45,16 @@ class AccordionView @JvmOverloads constructor(
      * This method is to be called in correlation with the View::onCreate().
      */
     private fun onCreate() {
-        val linearLayoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL, false
-        )
+       val layoutManager = if(totalColumns > 1) {
+            GridLayoutManager(this.context, totalColumns)
+        } else {
+            LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL, false
+            )
+        }
 
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemViewCacheSize(20)
         recyclerView.isNestedScrollingEnabled = false
@@ -93,7 +99,8 @@ class AccordionView @JvmOverloads constructor(
     fun onListChanged(list: List<AccordionViewModel>) {
         this.list.clear()
         this.list.addAll(list)
-        recyclerView.adapter?.notifyItemRangeChanged(0, list.size - 1)
+        recyclerView.adapter?.notifyDataSetChanged()
+//        recyclerView.adapter?.notifyItemRangeChanged(0, list.size - 1)
     }
 
     /**
@@ -105,6 +112,29 @@ class AccordionView @JvmOverloads constructor(
      */
     fun setCallback(callback: (AccordionViewModel) -> Unit) {
         this.callback = callback
+    }
+
+    /**
+     * @name onListChanged
+     * @author Coach Roebuck
+     * @since 2.18
+     * Sets the total number of columns in each row.
+     * @param value the total number of columns.
+     * Catch 22: The layout manager of the recycler view MUST be GridLayoutManager.
+     */
+    fun setTotalColumns(value: Int) {
+        this.totalColumns = value
+    }
+
+    /**
+     * @name setIsAlternatingRowBackgroundColorsEnabled
+     * @author Coach Roebuck
+     * @since 2.18
+     * Sets the ability to use alternating row background colors.
+     * @param value true or false
+     */
+    fun setIsAlternatingRowBackgroundColorsEnabled(value: Boolean) {
+        accordionViewAdapter.setIsAlternatingRowBackgroundColorsEnabled(value)
     }
 
     /**
@@ -128,15 +158,25 @@ class AccordionView @JvmOverloads constructor(
                 0,
                 defStyle
             )
-        val accordionPadding = typedArray.getDimensionPixelSize(
-            R.styleable.AccordionView_accordionPadding,
+        val padding = typedArray.getDimensionPixelSize(
+            R.styleable.AccordionView_padding,
             0
         )
-        println("accordionPadding=[$accordionPadding]")
+        totalColumns = typedArray.getInteger(
+            R.styleable.AccordionView_columns,
+            1
+        )
+        println("padding=[$padding]")
+        println("totalColumns=[$totalColumns]")
+
         typedArray.recycle()
     }
 
     private fun bindView() {
         recyclerView = findViewById(R.id.recyclerView)
+    }
+
+    fun refresh() {
+        accordionViewAdapter.notifyDataSetChanged()
     }
 }

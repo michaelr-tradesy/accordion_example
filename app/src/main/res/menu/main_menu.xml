@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/regular_view" android:title="@string/regular_view" />
+    <item android:id="@+id/chart_view" android:title="@string/chart_view" />
+    <item android:id="@+id/color_view" android:title="@string/color_view" />
+    <item android:id="@+id/group_view" android:title="@string/group_view" />
+    <item android:id="@+id/alphabetical_view" android:title="@string/alphabetical_view" />
+</menu>

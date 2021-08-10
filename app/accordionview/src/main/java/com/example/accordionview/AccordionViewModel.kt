@@ -88,6 +88,10 @@ data class AccordionViewModel(
          */
         Text,
         /**
+         * A category, consisting of a title and details.
+         */
+        Header,
+        /**
          * A category, consisting of a title details, and a UP / DOWN arrow indicator.
          */
         Expandable,
