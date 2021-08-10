@@ -77,6 +77,10 @@ data class AccordionViewModel(
          */
         Checkbox,
         /**
+         * A Check mark view, consisting of a title, details, and a check mark image.
+         */
+        Checkmark,
+        /**
          * A Color, consisting of a title, details,
          * and an image containing a circle using the specified background color.
          * If the corresponding view is to be multi-colored,

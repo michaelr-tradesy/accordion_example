@@ -13,14 +13,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    private enum class ViewType {
-        Regular, Chart, Color, Alphabetical, Group,
-    }
-
     private lateinit var accordionView: AccordionView
     private val maxDepth = 1
-    private var currentView = ViewType.Regular
-    private var isAlternativeColorsEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,34 +44,16 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.regular_view -> {
-                val list = generateRandomModels(abs(Random.nextInt()) %100)
-                accordionView.setTotalColumns(1)
-                accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
-                accordionView.onListChanged(list)
-                showToast(item.title.toString())
+                onGenerateRegularList(item)
             }
             R.id.chart_view -> {
-                accordionView.setIsAlternatingRowBackgroundColorsEnabled(isAlternativeColorsEnabled)
-                isAlternativeColorsEnabled = !isAlternativeColorsEnabled
-                accordionView.refresh()
-                showToast(item.title.toString())
+                onChartList(item)
             }
             R.id.color_view -> {
-                accordionView.setTotalColumns(3)
-                accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
-                val list: List<AccordionViewModel> = generateRandomModels(
-                    size = abs(Random.nextInt()) %100,
-                    preferredType = AccordionViewModel.Type.Color
-                )
-                accordionView.onListChanged(list)
-                showToast(item.title.toString())
+                onColorList(item)
             }
             R.id.group_view -> {
-                accordionView.setTotalColumns(1)
-                accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
-                val list = generateGroupRandomModels(abs(Random.nextInt()) %100)
-                accordionView.onListChanged(list)
-                showToast(item.title.toString())
+                onGroupList(item)
             }
             R.id.alphabetical_view -> {
                 accordionView.setTotalColumns(1)
@@ -87,27 +63,56 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun onGroupList(item: MenuItem) {
+        accordionView.setTotalColumns(1)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
+        val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
+        accordionView.onListChanged(list)
+        showToast(item.title.toString())
+    }
+
+    private fun onColorList(item: MenuItem) {
+        accordionView.setTotalColumns(3)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
+        val list: List<AccordionViewModel> = generateRandomColorModels(
+            size = abs(Random.nextInt()) % 100
+        )
+        accordionView.onListChanged(list)
+        showToast(item.title.toString())
+    }
+
+    private fun onChartList(item: MenuItem) {
+        val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
+        accordionView.setTotalColumns(1)
+        accordionView.onListChanged(list)
+        showToast(item.title.toString())
+    }
+
+    private fun onGenerateRegularList(item: MenuItem) {
+        val list = generateRandomModels(abs(Random.nextInt()) % 100)
+        accordionView.setTotalColumns(1)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
+        accordionView.onListChanged(list)
+        showToast(item.title.toString())
+    }
+
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-//    override fun setSupportActionBar(toolbar: Toolbar?) {
-//        super.setSupportActionBar(toolbar)
-//
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setDisplayShowTitleEnabled(true)
-//        toolbar?.setNavigationOnClickListener {
-//            onBackPressed()
-//        }
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//
-//        findViewById<Toolbar>(R.id.toolbar).apply {
-//            setSupportActionBar(this)
-//        }
-//    }
+    private fun generateRandomColorModels(size: Int): List<AccordionViewModel> {
+        val list: MutableList<AccordionViewModel> = mutableListOf()
+
+        for(i in 1..size) {
+            val type = AccordionViewModel.Type.Color
+            val isMultiColored = if(type == AccordionViewModel.Type.Color) {
+                Random.nextBoolean()
+            } else false
+            list.add(generateRandomModel(type = type, isMultiColored = isMultiColored))
+        }
+        return list.toList()
+    }
 
     private fun generateGroupRandomModels(size: Int): List<AccordionViewModel> {
         val list: MutableList<AccordionViewModel> = mutableListOf()
@@ -129,18 +134,22 @@ class MainActivity : AppCompatActivity() {
     ): List<AccordionViewModel> {
         val canCollapse = level < maxDepth
         val list: MutableList<AccordionViewModel> = mutableListOf()
-        val types = AccordionViewModel.Type.values()
-            .toMutableList()
-
-        types.remove(AccordionViewModel.Type.Expandable)
+        val types: MutableList<AccordionViewModel.Type> = mutableListOf(
+            AccordionViewModel.Type.Category,
+            AccordionViewModel.Type.Checkbox,
+            AccordionViewModel.Type.Checkmark,
+            AccordionViewModel.Type.Price,
+            AccordionViewModel.Type.Text,
+            AccordionViewModel.Type.Toggle
+        )
 
         for(i in 1..size) {
             val type = if(canCollapse) {
                 AccordionViewModel.Type.Expandable
             } else {
                 preferredType ?: run {
-                    val index = Random.nextInt()%types.size
-                    AccordionViewModel.Type.valueOf(index)
+                    val index = abs(Random.nextInt()%types.size)
+                    types[index]
                 }
             }
             val children: List<AccordionViewModel> = if(canCollapse) {

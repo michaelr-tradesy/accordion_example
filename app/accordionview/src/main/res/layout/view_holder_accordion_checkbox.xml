@@ -15,7 +15,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/checkmark"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
 
@@ -25,22 +25,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/checkmark"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox"
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="Details" />
 
-    <ImageView
-        android:id="@+id/checkmark"
-        android:layout_width="18dp"
-        android:layout_height="36dp"
-        android:contentDescription="@string/checkmark"
-        android:background="@drawable/ic_baseline_check_green_24"
-        android:layout_marginStart="@dimen/padding_16dp"
-        android:layout_marginEnd="@dimen/padding_16dp"
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/disclosure"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

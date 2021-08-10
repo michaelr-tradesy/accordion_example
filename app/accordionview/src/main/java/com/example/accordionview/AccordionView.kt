@@ -45,7 +45,17 @@ class AccordionView @JvmOverloads constructor(
      * This method is to be called in correlation with the View::onCreate().
      */
     private fun onCreate() {
-       val layoutManager = if(totalColumns > 1) {
+        setLayoutManager()
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setItemViewCacheSize(20)
+        recyclerView.isNestedScrollingEnabled = false
+
+        accordionViewAdapter = AccordionViewAdapter(list, ::onModelSelected)
+        recyclerView.adapter = accordionViewAdapter
+    }
+
+    private fun setLayoutManager() {
+        val layoutManager = if (totalColumns > 1) {
             GridLayoutManager(this.context, totalColumns)
         } else {
             LinearLayoutManager(
@@ -55,12 +65,6 @@ class AccordionView @JvmOverloads constructor(
         }
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setItemViewCacheSize(20)
-        recyclerView.isNestedScrollingEnabled = false
-
-        accordionViewAdapter = AccordionViewAdapter(list, ::onModelSelected)
-        recyclerView.adapter = accordionViewAdapter
     }
 
     /**
@@ -124,6 +128,7 @@ class AccordionView @JvmOverloads constructor(
      */
     fun setTotalColumns(value: Int) {
         this.totalColumns = value
+        setLayoutManager()
     }
 
     /**
@@ -166,8 +171,6 @@ class AccordionView @JvmOverloads constructor(
             R.styleable.AccordionView_columns,
             1
         )
-        println("padding=[$padding]")
-        println("totalColumns=[$totalColumns]")
 
         typedArray.recycle()
     }

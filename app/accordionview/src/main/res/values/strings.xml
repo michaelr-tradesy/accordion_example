@@ -3,4 +3,5 @@
     <string name="disclosure">disclosure</string>
     <string name="minimum_price">Minimum Price</string>
     <string name="price_range_slider">Price Range Slider</string>
+    <string name="checkmark">Checkmark</string>
 </resources>

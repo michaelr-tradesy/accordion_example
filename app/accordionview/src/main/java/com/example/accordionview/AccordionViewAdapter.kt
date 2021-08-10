@@ -40,12 +40,13 @@ internal class AccordionViewAdapter(
      * @param viewType The view type of the new View.
      *
      * @return A new ViewHolder that holds a View of the given view type.
-    */
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultAccordionViewHolder {
         val type = AccordionViewModel.Type.valueOf(viewType)
-        val layout = when(type) {
+        val layout = when (type) {
             AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
-            AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkmark
+            AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkbox
+            AccordionViewModel.Type.Checkmark -> R.layout.view_holder_accordion_checkmark
             AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
             AccordionViewModel.Type.Header -> R.layout.view_holder_accordion_header
             AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
@@ -60,9 +61,10 @@ internal class AccordionViewAdapter(
                 false
             )
 
-        return when(type) {
+        return when (type) {
             AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
             AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
+            AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)
             AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
             AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
             AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
@@ -89,11 +91,16 @@ internal class AccordionViewAdapter(
         holder.bind(model, callback)
         val type = model?.type
 
-        println("position=[$position] type=[$type] " +
-                "isAlternatingRowBackgroundColorsEnabled=[${this.isAlternatingRowBackgroundColorsEnabled}]" +
-                " isCurrentlyAlternatingBackgroundColor=[${this.isCurrentlyAlternatingBackgroundColor}]")
+        setBackgroundForModelView(type, holder)
+    }
 
-        if(this.isAlternatingRowBackgroundColorsEnabled) {
+    private fun setBackgroundForModelView(
+        type: AccordionViewModel.Type?,
+        holder: DefaultAccordionViewHolder
+    ) {
+        if (this.isAlternatingRowBackgroundColorsEnabled
+            && type != AccordionViewModel.Type.Color
+        ) {
             when (type) {
                 AccordionViewModel.Type.Header -> {
                     this.isCurrentlyAlternatingBackgroundColor = false
@@ -102,17 +109,32 @@ internal class AccordionViewAdapter(
                     this.isCurrentlyAlternatingBackgroundColor = true
                 }
                 else -> {
-                    if(this.isCurrentlyAlternatingBackgroundColor) {
-                        holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.header_background_text_color))
+                    if (this.isCurrentlyAlternatingBackgroundColor) {
+                        holder.itemView.setBackgroundColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.header_background_alternate_color
+                            )
+                        )
                     } else {
                         holder.itemView.setBackgroundColor(Color.TRANSPARENT)
                     }
-                    this.isCurrentlyAlternatingBackgroundColor = !this.isCurrentlyAlternatingBackgroundColor
+                    this.isCurrentlyAlternatingBackgroundColor =
+                        !this.isCurrentlyAlternatingBackgroundColor
                 }
             }
-        } else if(!(type == AccordionViewModel.Type.Header || type == AccordionViewModel.Type.Expandable)) {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+        } else if (canSetDefaultBackground(type)) {
+            holder.itemView.background = ContextCompat.getDrawable(
+                holder.itemView.context,
+                R.drawable.view_holder_background
+            )
         }
+    }
+
+    private fun canSetDefaultBackground(type: AccordionViewModel.Type?): Boolean {
+        return !(type == AccordionViewModel.Type.Header
+                || type == AccordionViewModel.Type.Expandable
+                || type == AccordionViewModel.Type.Color)
     }
 
     /**
@@ -133,7 +155,7 @@ internal class AccordionViewAdapter(
      * Returns the total number of items in the data set held by the adapter.
      *
      * @return The total number of items in this adapter.
-    */
+     */
     override fun getItemCount(): Int {
         return getTotalItems()
     }
@@ -146,7 +168,7 @@ internal class AccordionViewAdapter(
      *
      * @param position the indexed position relative to the list
      * @return The type of the view assigned by the adapter.
-    */
+     */
     override fun getItemViewType(position: Int): Int {
         val model = getModel(position)
         return model?.type?.ordinal ?: AccordionViewModel.Type.Text.ordinal
@@ -178,7 +200,7 @@ internal class AccordionViewAdapter(
         var indexfound = -1
 
         list.map {
-            if(it == accordionViewModel) {
+            if (it == accordionViewModel) {
                 return total
             }
             total += 1 + if (isExpanded(it)) {
@@ -189,7 +211,7 @@ internal class AccordionViewAdapter(
                 0
             }
 
-            if(indexfound > -1) {
+            if (indexfound > -1) {
                 return indexfound + total
             }
         }
@@ -214,7 +236,7 @@ internal class AccordionViewAdapter(
         var indexFound = -1
 
         root.children.map {
-            if(accordionViewModel == it) {
+            if (accordionViewModel == it) {
                 indexFound = total
             }
 

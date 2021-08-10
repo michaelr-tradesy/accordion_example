@@ -54,7 +54,6 @@ internal constructor(v: View) : RecyclerView.ViewHolder(v) {
      * This serves as the callback method for the onClick event.
      */
     protected fun onViewClicked() {
-        println("type clicked=[${this::class.simpleName}]")
         model?.let {
             privateCallback?.invoke()
             callback.invoke(it)

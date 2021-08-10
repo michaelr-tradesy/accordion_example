@@ -5,6 +5,8 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -19,8 +21,16 @@ import kotlin.math.roundToInt
 internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val imageView: ImageView = v.findViewById(R.id.imageView)
+    private val checkmark: ImageView = v.findViewById(R.id.checkmark)
     private val imageViewWidth = 256
     private val imageViewHeight = 256
+
+    init {
+        privateCallback = {
+            model?.isSelected = model?.isSelected == false
+            setCheckmarkVisibility()
+        }
+    }
 
     /**
      * @name bind
@@ -51,6 +61,18 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
             imageView.imageTintList = bgColorTint
             imageView.background = BitmapDrawable(context.resources, bitmap)
         }
+        val checkMarkResource = if(model?.isMultiColored == true) {
+            R.drawable.ic_baseline_check_white_24
+        } else {
+            R.drawable.ic_baseline_check_green_24
+        }
+        val drawable = ContextCompat.getDrawable(itemView.context, checkMarkResource)
+        checkmark.background = drawable
+        setCheckmarkVisibility()
+    }
+
+    private fun setCheckmarkVisibility() {
+        checkmark.isVisible = model?.isSelected == true
     }
 
     /**

@@ -5,11 +5,15 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.17447916666666666" />
         <entry key="app/accordionview/src/main/res/drawable/view_holder_background.xml" value="0.17552083333333332" />
+        <entry key="app/accordionview/src/main/res/drawable/view_holder_background_default.xml" value="0.17552083333333332" />
         <entry key="app/accordionview/src/main/res/drawable/view_holder_background_pressed.xml" value="0.17552083333333332" />
+        <entry key="app/accordionview/src/main/res/drawable/view_holder_background_selected.xml" value="0.17552083333333332" />
+        <entry key="app/accordionview/src/main/res/drawable/view_holder_color_background.xml" value="0.17552083333333332" />
         <entry key="app/accordionview/src/main/res/layout/layout_accordion_view.xml" value="0.159375" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_category.xml" value="0.5" />
-        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_checkmark.xml" value="0.159375" />
-        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_color.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_checkbox.xml" value="0.159375" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_checkmark.xml" value="0.45" />
+        <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_color.xml" value="0.5" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_expandable.xml" value="0.159375" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_header.xml" value="0.4457831325301205" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_price.xml" value="0.35789473684210527" />
