@@ -13,6 +13,11 @@
         android:background="@drawable/comment_background"
         android:stateListAnimator="@animator/comment_selection"
         android:layoutAnimation="@anim/layout_animation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollEnabled="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

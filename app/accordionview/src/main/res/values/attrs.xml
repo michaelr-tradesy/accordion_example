@@ -4,5 +4,6 @@
         <attr name="alternativeButtonContentDescription" format="string" localization="suggested" />
         <attr name="padding" format="dimension" />
         <attr name="columns" format="integer" />
+        <attr name="alphabeticalScrollingEnabled" format="boolean" />
     </declare-styleable>
 </resources>

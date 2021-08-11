@@ -4,6 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.17447916666666666" />
+        <entry key="app/accordionview/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1671875" />
+        <entry key="app/accordionview/src/main/res/drawable/ic_disclosure.xml" value="0.1671875" />
+        <entry key="app/accordionview/src/main/res/drawable/ic_launcher_background.xml" value="0.1671875" />
+        <entry key="app/accordionview/src/main/res/drawable/line.xml" value="0.17239583333333333" />
+        <entry key="app/accordionview/src/main/res/drawable/line_drawable.xml" value="0.17239583333333333" />
+        <entry key="app/accordionview/src/main/res/drawable/thumb.xml" value="0.17239583333333333" />
+        <entry key="app/accordionview/src/main/res/drawable/thumb_drawable.xml" value="0.17239583333333333" />
         <entry key="app/accordionview/src/main/res/drawable/view_holder_background.xml" value="0.17552083333333332" />
         <entry key="app/accordionview/src/main/res/drawable/view_holder_background_default.xml" value="0.17552083333333332" />
         <entry key="app/accordionview/src/main/res/drawable/view_holder_background_pressed.xml" value="0.17552083333333332" />
@@ -21,6 +28,7 @@
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_toggle.xml" value="0.159375" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_two_column_details.xml" value="0.19202898550724637" />
         <entry key="app/accordionview/src/main/res/layout/view_holder_accordion_two_column_header.xml" value="0.375" />
+        <entry key="app/accordionview/src/main/res/layout/view_list_item.xml" value="0.625" />
         <entry key="app/src/main/res/drawable/btn_dark_colors.xml" value="0.1671875" />
         <entry key="app/src/main/res/drawable/btn_light_colors.xml" value="0.1671875" />
         <entry key="app/src/main/res/drawable/disclosure.xml" value="0.17552083333333332" />

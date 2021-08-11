@@ -1,8 +1,12 @@
 package com.example.accordionview
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AlphabetIndexer
+import android.widget.SectionIndexer
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -13,13 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
  * This component serves as the adapter for our Accordion View
  */
 internal class AccordionViewAdapter(
+    context: Context,
     private val list: List<AccordionViewModel> = listOf(),
     private val callback: (AccordionViewModel) -> Unit = { _ -> }
-) : RecyclerView.Adapter<DefaultAccordionViewHolder>() {
+) : RecyclerView.Adapter<DefaultAccordionViewHolder>(), SectionIndexer {
 
-    private var isAlternatingRowBackgroundColorsEnabled: Boolean = false
-    private var isCurrentlyAlternatingBackgroundColor = true
-
+    // region Properties
     /**
      * @name isAnimationEnabled
      * @author Coach Roebuck
@@ -27,6 +30,39 @@ internal class AccordionViewAdapter(
      * If this is enabled, animation will be performed at the time we bind to each view holder.
      */
     var isAnimationEnabled: Boolean = true
+
+    /**
+     * @name isAlternatingRowBackgroundColorsEnabled
+     * @author Coach Roebuck
+     * @since 2.18
+     * If this is enabled, the background of every other view holder will be a different color.
+     * That background color is predetermined inside the styles.
+     */
+    private var isAlternatingRowBackgroundColorsEnabled: Boolean = false
+
+    /**
+     * @name isCurrentlyAlternatingBackgroundColor
+     * @author Coach Roebuck
+     * @since 2.18
+     * This indicator is controlled by this adapter, and discloses the current status
+     * of the background color on the next view holder.
+     */
+    private var isCurrentlyAlternatingBackgroundColor = true
+
+    // Loads a string containing the English alphabet. To fully localize the app, provide a
+    // strings.xml file in res/values-<x> directories, where <x> is a locale. In the file,
+    // define a string with android:name="alphabet" and contents set to all of the
+    // alphabetic characters in the language in their proper sort order, in upper case if
+    // applicable.
+    private val alphabet = context.getString(R.string.alphabet)
+
+    private var alphabetIndexer = AlphabetIndexer(null, 2, alphabet)
+
+    // endregion
+
+    // region Override Methods
+
+    // region RecyclerView.Adapter Override Methods
 
     /**
      * @name onCreateViewHolder
@@ -47,19 +83,7 @@ internal class AccordionViewAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultAccordionViewHolder {
         val type = AccordionViewModel.Type.valueOf(viewType)
-        val layout = when (type) {
-            AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
-            AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkbox
-            AccordionViewModel.Type.Checkmark -> R.layout.view_holder_accordion_checkmark
-            AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
-            AccordionViewModel.Type.Header -> R.layout.view_holder_accordion_header
-            AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
-            AccordionViewModel.Type.Price -> R.layout.view_holder_accordion_price
-            AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
-            AccordionViewModel.Type.Toggle -> R.layout.view_holder_accordion_toggle
-            AccordionViewModel.Type.TwoColumnHeader -> R.layout.view_holder_accordion_two_column_header
-            AccordionViewModel.Type.TwoColumnDetails -> R.layout.view_holder_accordion_two_column_details
-        }
+        val layout = getNextLayout(type)
         val view = LayoutInflater.from(parent.context)
             .inflate(
                 layout,
@@ -67,19 +91,7 @@ internal class AccordionViewAdapter(
                 false
             )
 
-        return when (type) {
-            AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
-            AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
-            AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)
-            AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
-            AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
-            AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)
-            AccordionViewModel.Type.Price -> PriceAccordionViewHolder(view)
-            AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
-            AccordionViewModel.Type.Toggle -> ToggleAccordionViewHolder(view)
-            AccordionViewModel.Type.TwoColumnHeader,
-            AccordionViewModel.Type.TwoColumnDetails -> TwoColumnTextAccordionViewHolder(view)
-        }
+        return getNextViewHolder(type, view)
     }
 
     /**
@@ -100,51 +112,6 @@ internal class AccordionViewAdapter(
         val type = model?.type
 
         setBackgroundForModelView(type, holder)
-    }
-
-    private fun setBackgroundForModelView(
-        type: AccordionViewModel.Type?,
-        holder: DefaultAccordionViewHolder
-    ) {
-        if (this.isAlternatingRowBackgroundColorsEnabled
-            && type != AccordionViewModel.Type.Color
-        ) {
-            when (type) {
-                AccordionViewModel.Type.Header -> {
-                    this.isCurrentlyAlternatingBackgroundColor = false
-                }
-                AccordionViewModel.Type.Expandable,
-                AccordionViewModel.Type.TwoColumnHeader  -> {
-                    this.isCurrentlyAlternatingBackgroundColor = true
-                }
-                else -> {
-                    if (this.isCurrentlyAlternatingBackgroundColor) {
-                        holder.itemView.setBackgroundColor(
-                            ContextCompat.getColor(
-                                holder.itemView.context,
-                                R.color.header_background_alternate_color
-                            )
-                        )
-                    } else {
-                        holder.itemView.setBackgroundColor(Color.TRANSPARENT)
-                    }
-                    this.isCurrentlyAlternatingBackgroundColor =
-                        !this.isCurrentlyAlternatingBackgroundColor
-                }
-            }
-        } else if (canSetDefaultBackground(type)) {
-            holder.itemView.background = ContextCompat.getDrawable(
-                holder.itemView.context,
-                R.drawable.view_holder_background
-            )
-        }
-    }
-
-    private fun canSetDefaultBackground(type: AccordionViewModel.Type?): Boolean {
-        return !(type == AccordionViewModel.Type.Header
-                || type == AccordionViewModel.Type.Expandable
-                || type == AccordionViewModel.Type.Color
-                || type == AccordionViewModel.Type.TwoColumnHeader)
     }
 
     /**
@@ -183,6 +150,67 @@ internal class AccordionViewAdapter(
         val model = getModel(position)
         return model?.type?.ordinal ?: AccordionViewModel.Type.Text.ordinal
     }
+
+    // endregion
+
+    // region SectionIndexer Override Methods
+
+    /**
+     * Returns an array of objects representing sections of the list. The
+     * returned array and its contents should be non-null.
+     * <p>
+     * The list view will call toString() on the objects to get the preview text
+     * to display while scrolling. For example, an adapter may return an array
+     * of Strings representing letters of the alphabet. Or, it may return an
+     * array of objects whose toString() methods return their section titles.
+     *
+     * @return the array of section objects
+     */
+    override fun getSections(): Array<Any> {
+        return alphabetIndexer.sections
+    }
+
+    /**
+     * Given the index of a section within the array of section objects, returns
+     * the starting position of that section within the adapter.
+     * <p>
+     * If the section's starting position is outside of the adapter bounds, the
+     * position must be clipped to fall within the size of the adapter.
+     *
+     * @param sectionIndex the index of the section within the array of section
+     *            objects
+     * @return the starting position of that section within the adapter,
+     *         constrained to fall within the adapter bounds
+     */
+    override fun getPositionForSection(sectionIndex: Int): Int {
+        return alphabetIndexer.getPositionForSection(sectionIndex)
+    }
+
+    /**
+     * Given a position within the adapter, returns the index of the
+     * corresponding section within the array of section objects.
+     * <p>
+     * If the section index is outside of the section array bounds, the index
+     * must be clipped to fall within the size of the section array.
+     * <p>
+     * For example, consider an indexer where the section at array index 0
+     * starts at adapter position 100. Calling this method with position 10,
+     * which is before the first section, must return index 0.
+     *
+     * @param position the position within the adapter for which to return the
+     *            corresponding section index
+     * @return the index of the corresponding section within the array of
+     *         section objects, constrained to fall within the array bounds
+     */
+    override fun getSectionForPosition(position: Int): Int {
+        return alphabetIndexer.getSectionForPosition(position)
+    }
+
+    // endregion
+
+    // endregion
+
+    // region Public Methods
 
     /**
      * @name setUsesAlternatingRowBackgroundColors
@@ -227,6 +255,134 @@ internal class AccordionViewAdapter(
         }
 
         return indexfound
+    }
+
+    // endregion
+
+    // region Private Methods
+
+    /**
+     * @name getNextLayout
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and retrieves the layout that is mapped to the specified type.
+     * @param type This is the enumeration value
+     * @return A numeric value representing a layout that is mapped to each type.
+     */
+    private fun getNextLayout(type: AccordionViewModel.Type) = when (type) {
+        AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
+        AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkbox
+        AccordionViewModel.Type.Checkmark -> R.layout.view_holder_accordion_checkmark
+        AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
+        AccordionViewModel.Type.Header -> R.layout.view_holder_accordion_header
+        AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
+        AccordionViewModel.Type.Price -> R.layout.view_holder_accordion_price
+        AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
+        AccordionViewModel.Type.Toggle -> R.layout.view_holder_accordion_toggle
+        AccordionViewModel.Type.TwoColumnHeader -> R.layout.view_holder_accordion_two_column_header
+        AccordionViewModel.Type.TwoColumnDetails -> R.layout.view_holder_accordion_two_column_details
+    }
+
+    /**
+     * @name getNextViewHolder
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and retrieves the view holder that is mapped to the specified type.
+     * @param type This is the enumeration value
+     * @return An instantiated view holder that is mapped to each type.
+     */
+    private fun getNextViewHolder(
+        type: AccordionViewModel.Type,
+        view: View
+    ) = when (type) {
+        AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
+        AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
+        AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)
+        AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
+        AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
+        AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)
+        AccordionViewModel.Type.Price -> PriceAccordionViewHolder(view)
+        AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
+        AccordionViewModel.Type.Toggle -> ToggleAccordionViewHolder(view)
+        AccordionViewModel.Type.TwoColumnHeader,
+        AccordionViewModel.Type.TwoColumnDetails -> TwoColumnTextAccordionViewHolder(view)
+    }
+
+    /**
+     * @name setBackgroundForModelView
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and sets the background for the current view holder.
+     * If isAlternatingRowBackgroundColorsEnabled has been CLEARED,
+     * then the background of the specified view holder will be set to the default drawable resource
+     * defined in the styles.
+     * * If isAlternatingRowBackgroundColorsEnabled has been enabled, then we must refer to logic.
+     * If the current view holder is a Header, then we LEAVE THE BACKGROUND ALONE. However,
+     * we clear the isCurrentlyAlternatingBackgroundColor indicator.
+     * We want and expect the very next row to use the default background.
+     * * If the current view holder is either an Expandable or a TwoColumnHeader,
+     * then we will also LEAVE THE BACKGROUND ALONE. However, this time
+     * we SET the isCurrentlyAlternatingBackgroundColor indicator.
+     * We want and expect the very next row to use the alternate background.
+     * The background of all other types of view holders will be determined by the status of the
+     * isCurrentlyAlternatingBackgroundColor indicator, which will be toggled between TRUE / FALSE
+     * after setting the next background.
+     * @param type This is the enumeration value
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     */
+    private fun setBackgroundForModelView(
+        type: AccordionViewModel.Type?,
+        holder: DefaultAccordionViewHolder
+    ) {
+        if (this.isAlternatingRowBackgroundColorsEnabled
+            && type != AccordionViewModel.Type.Color
+        ) {
+            when (type) {
+                AccordionViewModel.Type.Header -> {
+                    this.isCurrentlyAlternatingBackgroundColor = false
+                }
+                AccordionViewModel.Type.Expandable,
+                AccordionViewModel.Type.TwoColumnHeader  -> {
+                    this.isCurrentlyAlternatingBackgroundColor = true
+                }
+                else -> {
+                    if (this.isCurrentlyAlternatingBackgroundColor) {
+                        holder.itemView.setBackgroundColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.header_background_alternate_color
+                            )
+                        )
+                    } else {
+                        holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                    }
+                    this.isCurrentlyAlternatingBackgroundColor =
+                        !this.isCurrentlyAlternatingBackgroundColor
+                }
+            }
+        } else if (canSetDefaultBackground(type)) {
+            holder.itemView.background = ContextCompat.getDrawable(
+                holder.itemView.context,
+                R.drawable.view_holder_background
+            )
+        }
+    }
+
+    /**
+     * @name canSetDefaultBackground
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and determines whether the default background can be set
+     * for the current type.
+     * @param type This is the enumeration value
+     * @return TRUE if condition is met; otherwise, FALSE.
+     */
+    private fun canSetDefaultBackground(type: AccordionViewModel.Type?): Boolean {
+        return !(type == AccordionViewModel.Type.Header
+                || type == AccordionViewModel.Type.Expandable
+                || type == AccordionViewModel.Type.Color
+                || type == AccordionViewModel.Type.TwoColumnHeader)
     }
 
     /**
@@ -364,6 +520,17 @@ internal class AccordionViewAdapter(
         return Pair(total, model)
     }
 
+    /**
+     * @name isExpanded
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and determines the current expanded status of the specified model.
+     * The model must either be a HEADER or its isExpanded status must be set
+     * @param model The accordion view model
+     * @return TRUE if condition is met; otherwise, FALSE.
+     */
     private fun isExpanded(model: AccordionViewModel): Boolean =
         model.isExpanded || model.type == AccordionViewModel.Type.Header
+
+    // endregion
 }

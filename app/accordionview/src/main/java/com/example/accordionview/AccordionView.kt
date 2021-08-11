@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.cursoradapter.widget.SimpleCursorAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,74 +26,31 @@ class AccordionView @JvmOverloads constructor(
 ) :
     ConstraintLayout(context, attrs, defStyle) {
 
-    private var selAccordionViewModel: AccordionViewModel? = null
-    private lateinit var recyclerView: RecyclerView
+    // region Properties
+
     private lateinit var accordionViewAdapter: AccordionViewAdapter
-    private var list: MutableList<AccordionViewModel> = mutableListOf()
+    private lateinit var alphabetListViewAdapter: ArrayAdapter<Char>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var alphabetListView: ListView
     private var callback: (AccordionViewModel) -> Unit = { _ -> }
+    private var isAlphabeticalScrollingEnabled = false
+    private var list: MutableList<AccordionViewModel> = mutableListOf()
+    private var selAccordionViewModel: AccordionViewModel? = null
     private var totalColumns: Int = 1
+
+    // endregion
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_accordion_view, this)
-
         loadViewAttributes(context, attrs, defStyle)
         bindView()
         onCreate()
     }
 
-    /**
-     * @name onCreate
-     * @author Coach Roebuck
-     * @since 2.18
-     * This method is to be called in correlation with the View::onCreate().
-     */
-    private fun onCreate() {
-        setLayoutManager()
-        recyclerView.setHasFixedSize(true)
-        recyclerView.setItemViewCacheSize(20)
-        recyclerView.isNestedScrollingEnabled = false
+    // region Public Methods
 
-        accordionViewAdapter = AccordionViewAdapter(list, ::onModelSelected)
-        recyclerView.adapter = accordionViewAdapter
-    }
-
-    private fun setLayoutManager() {
-        val layoutManager = if (totalColumns > 1) {
-            GridLayoutManager(this.context, totalColumns)
-        } else {
-            LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL, false
-            )
-        }
-
-        recyclerView.layoutManager = layoutManager
-    }
-
-    /**
-     * @name onModelSelected
-     * @author Coach Roebuck
-     * @since 2.18
-     * This method serves as the callback method to respond to the selected option in the list.
-     * If the selected model is expandable, we will toggle between collapsing and expanding
-     * the sublist of that category.
-     * We will also save the most recent selection.
-     */
-    private fun onModelSelected(accordionViewModel: AccordionViewModel) {
-        selAccordionViewModel = accordionViewModel
-        accordionViewModel.isExpanded = !accordionViewModel.isExpanded
-        accordionViewAdapter.isAnimationEnabled = accordionViewModel.isExpanded
-
-        val index = accordionViewAdapter.indexOf(accordionViewModel)
-        val totalChildren = accordionViewModel.children.size
-
-        callback.invoke(accordionViewModel)
-
-        if (accordionViewModel.canCollapse && accordionViewModel.isExpanded) {
-            accordionViewAdapter.notifyItemRangeInserted(index + 1, totalChildren)
-        } else if(accordionViewModel.canCollapse) {
-            accordionViewAdapter.notifyItemRangeRemoved(index + 1, totalChildren)
-        }
+    fun refresh() {
+        accordionViewAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -132,6 +92,17 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
+     * @name setAlphabeticalScrollingEnabled
+     * @author Coach Roebuck
+     * @since 2.18
+     * If set, will enable alphabetical scrolling.
+     * @param value If set, will enable alphabetical scrolling.
+     */
+    fun setAlphabeticalScrollingEnabled(isAlphabeticalScrollingEnabled: Boolean) {
+        this.isAlphabeticalScrollingEnabled = isAlphabeticalScrollingEnabled
+    }
+
+    /**
      * @name setIsAlternatingRowBackgroundColorsEnabled
      * @author Coach Roebuck
      * @since 2.18
@@ -140,6 +111,76 @@ class AccordionView @JvmOverloads constructor(
      */
     fun setIsAlternatingRowBackgroundColorsEnabled(value: Boolean) {
         accordionViewAdapter.setIsAlternatingRowBackgroundColorsEnabled(value)
+    }
+
+    // endregion
+
+    // region Private Methods
+
+    /**
+     * @name onCreate
+     * @author Coach Roebuck
+     * @since 2.18
+     * This method is to be called in correlation with the View::onCreate().
+     */
+    private fun onCreate() {
+        createContentRecyclerView()
+    }
+
+    private fun createContentRecyclerView() {
+        setLayoutManager()
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setItemViewCacheSize(20)
+        recyclerView.isNestedScrollingEnabled = false
+
+        accordionViewAdapter = AccordionViewAdapter(this.context, list, ::onModelSelected)
+        recyclerView.adapter = accordionViewAdapter
+        recyclerView
+    }
+
+    /**
+     * @name setLayoutManager
+     * @author Coach Roebuck
+     * @since 2.18
+     * Lives up to its name and sets the layout manager using the value of the total columns field.
+     */
+    private fun setLayoutManager() {
+        val layoutManager = if (totalColumns > 1) {
+            GridLayoutManager(this.context, totalColumns)
+        } else {
+            LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL, false
+            )
+        }
+
+        recyclerView.layoutManager = layoutManager
+    }
+
+    /**
+     * @name onModelSelected
+     * @author Coach Roebuck
+     * @since 2.18
+     * This method serves as the callback method to respond to the selected option in the list.
+     * If the selected model is expandable, we will toggle between collapsing and expanding
+     * the sublist of that category.
+     * We will also save the most recent selection.
+     */
+    private fun onModelSelected(accordionViewModel: AccordionViewModel) {
+        selAccordionViewModel = accordionViewModel
+        accordionViewModel.isExpanded = !accordionViewModel.isExpanded
+        accordionViewAdapter.isAnimationEnabled = accordionViewModel.isExpanded
+
+        val index = accordionViewAdapter.indexOf(accordionViewModel)
+        val totalChildren = accordionViewModel.children.size
+
+        callback.invoke(accordionViewModel)
+
+        if (accordionViewModel.canCollapse && accordionViewModel.isExpanded) {
+            accordionViewAdapter.notifyItemRangeInserted(index + 1, totalChildren)
+        } else if(accordionViewModel.canCollapse) {
+            accordionViewAdapter.notifyItemRangeRemoved(index + 1, totalChildren)
+        }
     }
 
     /**
@@ -171,6 +212,10 @@ class AccordionView @JvmOverloads constructor(
             R.styleable.AccordionView_columns,
             1
         )
+        isAlphabeticalScrollingEnabled = typedArray.getBoolean(
+            R.styleable.AccordionView_alphabeticalScrollingEnabled,
+            false
+        )
 
         typedArray.recycle()
     }
@@ -179,7 +224,5 @@ class AccordionView @JvmOverloads constructor(
         recyclerView = findViewById(R.id.recyclerView)
     }
 
-    fun refresh() {
-        accordionViewAdapter.notifyDataSetChanged()
-    }
+    // endregion
 }
