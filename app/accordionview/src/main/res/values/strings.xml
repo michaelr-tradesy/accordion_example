@@ -4,5 +4,5 @@
     <string name="minimum_price">Minimum Price</string>
     <string name="price_range_slider">Price Range Slider</string>
     <string name="checkmark">Checkmark</string>
-    <string name="alphabet">&#8902;ABCDEFGHIJKLMNOPQRSTUVWXYZ#</string>
+    <string name="alphabet">#ABCDEFGHIJKLMNOPQRSTUVWXYZ&#8902;</string>
 </resources>

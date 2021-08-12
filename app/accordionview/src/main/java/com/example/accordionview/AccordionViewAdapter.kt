@@ -1,11 +1,9 @@
 package com.example.accordionview
 
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AlphabetIndexer
 import android.widget.SectionIndexer
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
  * This component serves as the adapter for our Accordion View
  */
 internal class AccordionViewAdapter(
-    context: Context,
     private val list: List<AccordionViewModel> = listOf(),
     private val callback: (AccordionViewModel) -> Unit = { _ -> }
 ) : RecyclerView.Adapter<DefaultAccordionViewHolder>(), SectionIndexer {
@@ -49,14 +46,7 @@ internal class AccordionViewAdapter(
      */
     private var isCurrentlyAlternatingBackgroundColor = true
 
-    // Loads a string containing the English alphabet. To fully localize the app, provide a
-    // strings.xml file in res/values-<x> directories, where <x> is a locale. In the file,
-    // define a string with android:name="alphabet" and contents set to all of the
-    // alphabetic characters in the language in their proper sort order, in upper case if
-    // applicable.
-    private val alphabet = context.getString(R.string.alphabet)
-
-    private var alphabetIndexer = AlphabetIndexer(null, 2, alphabet)
+    private val sectionMap = hashMapOf<String, Int>()
 
     // endregion
 
@@ -167,7 +157,7 @@ internal class AccordionViewAdapter(
      * @return the array of section objects
      */
     override fun getSections(): Array<Any> {
-        return alphabetIndexer.sections
+        return sectionMap.keys.sorted().toTypedArray()
     }
 
     /**
@@ -183,7 +173,12 @@ internal class AccordionViewAdapter(
      *         constrained to fall within the adapter bounds
      */
     override fun getPositionForSection(sectionIndex: Int): Int {
-        return alphabetIndexer.getPositionForSection(sectionIndex)
+        return if(sectionIndex > -1 && sectionIndex < sectionMap.size) {
+            val key = sectionMap.keys.sorted().toList()[sectionIndex]
+            sectionMap[key] ?: -1
+        } else {
+            -1
+        }
     }
 
     /**
@@ -203,7 +198,13 @@ internal class AccordionViewAdapter(
      *         section objects, constrained to fall within the array bounds
      */
     override fun getSectionForPosition(position: Int): Int {
-        return alphabetIndexer.getSectionForPosition(position)
+        var output = -1
+        sectionMap.map {
+            if(position > it.value) {
+                output++
+            }
+        }
+        return output
     }
 
     // endregion
@@ -424,7 +425,9 @@ internal class AccordionViewAdapter(
     private fun getTotalItems(): Int {
         var total = 0
 
+        sectionMap.clear()
         list.map {
+            sectionMap[it.title.first().uppercaseChar().toString()] = total
             total += 1 + if (isExpanded(it)) {
                 totalChildren(it)
             } else {
@@ -461,7 +464,7 @@ internal class AccordionViewAdapter(
      * @param position the current position in the list. This list is treated as a tree.
      * @return if the item is not out of bounds, the model is returned. Else, null is returned.
      */
-    private fun getModel(position: Int): AccordionViewModel? {
+    fun getModel(position: Int): AccordionViewModel? {
         var model: AccordionViewModel? = null
         var total = 0
 

@@ -49,7 +49,6 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
         model?.backgroundColor?.let {
             val backgroundColor = Color.parseColor(it)
-            val strokeColor = (backgroundColor and 0x00ffffff) or (0xAA shl 24)
             val fillColor = (backgroundColor and 0x00ffffff) or (0x66 shl 24)
             val bitmap: Bitmap = if (model.isMultiColored) {
                 drawMultiColoredImage()

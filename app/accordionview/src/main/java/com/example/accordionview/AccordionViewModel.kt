@@ -11,6 +11,10 @@ import java.lang.StringBuilder
  */
 data class AccordionViewModel(
     /**
+     * The title of this model to display in the corresponding view.
+     */
+    val title: String,
+    /**
      * The physical object that must be attached to this view model.
      * This property can be of any type.
      */
@@ -27,10 +31,6 @@ data class AccordionViewModel(
      * The current UI state of whether or not the corresponding view is selected or checked.
      */
     var isSelected: Boolean = false,
-    /**
-     * The title of this model to display in the corresponding view.
-     */
-    val title: String? = null,
     /**
      * The details of this model to display in the corresponding view.
      */

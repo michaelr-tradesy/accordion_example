@@ -2,12 +2,13 @@ package com.example.accordionview
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.cursoradapter.widget.SimpleCursorAdapter
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -129,13 +130,36 @@ class AccordionView @JvmOverloads constructor(
 
     private fun createContentRecyclerView() {
         setLayoutManager()
+//        initAlphabeticalFastScrolling()
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemViewCacheSize(20)
         recyclerView.isNestedScrollingEnabled = false
 
-        accordionViewAdapter = AccordionViewAdapter(this.context, list, ::onModelSelected)
+        accordionViewAdapter = AccordionViewAdapter(list, ::onModelSelected)
         recyclerView.adapter = accordionViewAdapter
-        recyclerView
+    }
+
+    private fun initAlphabeticalFastScrolling() {
+        val verticalThumbDrawable = ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable) as StateListDrawable
+        val verticalTrackDrawable = ContextCompat.getDrawable(this.context, R.drawable.line_drawable)
+        val horizontalThumbDrawable = ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable) as StateListDrawable
+        val horizontalTrackDrawable = ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable)
+        val resources = context.resources
+
+        verticalTrackDrawable?.let { vTrackDrawable ->
+            horizontalTrackDrawable?.let { hTrackDrawable ->
+                AlphabeticalFastScroller(
+                    recyclerView,
+                    verticalThumbDrawable,
+                    vTrackDrawable,
+                    horizontalThumbDrawable,
+                    hTrackDrawable,
+                    resources.getDimensionPixelSize(R.dimen.fastscroll_default_thickness).toFloat(),
+                    resources.getDimensionPixelSize(R.dimen.fastscroll_minimum_range).toFloat(),
+                    resources.getDimensionPixelOffset(R.dimen.fastscroll_margin)
+                )
+            }
+        }
     }
 
     /**

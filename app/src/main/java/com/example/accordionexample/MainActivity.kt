@@ -9,6 +9,7 @@ import com.example.accordionview.AccordionView
 import com.example.accordionview.AccordionViewModel
 import kotlin.math.abs
 import kotlin.random.Random
+import org.apache.commons.lang3.RandomStringUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val list: List<AccordionViewModel> = generateRandomModels(abs(Random.nextInt()) % 100)
+        val list: List<AccordionViewModel> = generateRandomModels(
+            abs(Random.nextInt()) % 100
+        )
         accordionView.setCallback {
             println("Accordion View Model Selected: $it")
         }
@@ -82,7 +85,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAlphabeticalList(item: MenuItem) {
+        val list: MutableList<AccordionViewModel> = mutableListOf()
+        val alphabet = getString(R.string.alphabet).toCharArray()
+
+        alphabet.map {
+            val children: List<AccordionViewModel> =
+                generateRandomModels(
+                    size = abs(Random.nextInt()) % 10,
+                    level = 1,
+                    preferredType = AccordionViewModel.Type.Text
+                )
+
+            list.add(
+                AccordionViewModel(
+                    title = it.toString(),
+                    children = children,
+                    type = AccordionViewModel.Type.Header
+                )
+            )
+        }
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.setTotalColumns(1)
+        accordionView.onListChanged(list)
         showToast(item.title.toString())
     }
 
@@ -137,18 +161,20 @@ class MainActivity : AppCompatActivity() {
         return list.toList()
     }
 
-    private fun generateGroupRandomModels(size: Int): List<AccordionViewModel> {
+    private fun generateGroupRandomModels(size: Int, titlePrefix: String? = null): List<AccordionViewModel> {
         val list: MutableList<AccordionViewModel> = mutableListOf()
 
         for (i in 1..size) {
             val type = AccordionViewModel.Type.Header
             val children: List<AccordionViewModel> =
-                generateRandomModels(abs(Random.nextInt()) % 10, 1)
+                generateRandomModels(
+                    size = abs(Random.nextInt()) % 10,
+                    level = 1
+                )
 
             list.add(generateRandomModel(children = children, type = type))
         }
         return list.toList()
-
     }
 
     private fun generateRandomModels(
@@ -178,7 +204,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             val children: List<AccordionViewModel> = if (canCollapse) {
-                generateRandomModels(abs(Random.nextInt()) % 10, level + 1)
+                generateRandomModels(
+                    size = abs(Random.nextInt()) % 10,
+                    level = level + 1
+                )
             } else {
                 listOf()
             }
@@ -195,16 +224,20 @@ class MainActivity : AppCompatActivity() {
         children: List<AccordionViewModel> = listOf(),
         canCollapse: Boolean = false,
         type: AccordionViewModel.Type,
-        isMultiColored: Boolean = false
+        isMultiColored: Boolean = false,
+        titlePrefix: String? = "",
+        detailsPrefix: String? = "",
+        subTitlePrefix: String? = "",
+        subDetailsPrefix: String? = "",
     ): AccordionViewModel {
-        val title =
-            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
-        val details =
-            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
-        val subTitle =
-            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
-        val subDetails =
-            org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
+        val title = titlePrefix +
+            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+        val details = detailsPrefix +
+            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
+        val subTitle = subTitlePrefix +
+            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+        val subDetails = subDetailsPrefix +
+            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
         return AccordionViewModel(
             title = title,
             details = details,
