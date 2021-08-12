@@ -19,6 +19,47 @@
         app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
         app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
         app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
-        app:fastScrollEnabled="false" />
+        app:fastScrollEnabled="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alphabetRecyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:background="@color/transparent"
+        android:stateListAnimator="@animator/comment_selection"
+        android:layoutAnimation="@anim/layout_animation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <ImageView
+        android:id="@+id/currentLetterImageView"
+        android:background="@drawable/current_letter_background"
+        android:scaleType="centerInside"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginEnd="@dimen/padding_16dp"
+        app:layout_constraintEnd_toStartOf="@id/alphabetRecyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/currentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/currentLetterImageView"
+        app:layout_constraintBottom_toBottomOf="@id/currentLetterImageView"
+        app:layout_constraintStart_toStartOf="@id/currentLetterImageView"
+        app:layout_constraintEnd_toEndOf="@id/currentLetterImageView"
+        tools:text="T"
+        android:textColor="?attr/colorOnPrimarySurface"
+        android:textSize="48sp"
+        android:elevation="16dp"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

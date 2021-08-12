@@ -46,6 +46,14 @@ internal class AccordionViewAdapter(
      */
     private var isCurrentlyAlternatingBackgroundColor = true
 
+    /**
+     * @name sectionMap
+     * @author Coach Roebuck
+     * @since 2.18
+     * This is our alphabet section.
+     * The key represents the letter in the alphabet and each group / section,
+     * while the value represents the index in which that section / group starts.
+     */
     private val sectionMap = hashMapOf<String, Int>()
 
     // endregion
@@ -158,6 +166,25 @@ internal class AccordionViewAdapter(
      */
     override fun getSections(): Array<Any> {
         return sectionMap.keys.sorted().toTypedArray()
+    }
+
+    /**
+     * Given the index of a section within the array of section objects, returns
+     * the starting position of that section within the adapter.
+     * <p>
+     * If the section's starting position is outside of the adapter bounds, the
+     * position must be clipped to fall within the size of the adapter.
+     *
+     * @param key the key relevant to the sections, when applicable.
+     * @return the starting position of that section (identified by key) within the adapter,
+     *         constrained to fall within the adapter bounds.
+     *         If this key is not found,
+     */
+    fun getPositionForKey(key: String): Int {
+        if(sectionMap.containsKey(key)) {
+            sectionMap[key]?.let { return it } ?: return -1
+        }
+        return -1
     }
 
     /**

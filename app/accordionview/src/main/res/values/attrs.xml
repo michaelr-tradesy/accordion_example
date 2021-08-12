@@ -5,5 +5,6 @@
         <attr name="padding" format="dimension" />
         <attr name="columns" format="integer" />
         <attr name="alphabeticalScrollingEnabled" format="boolean" />
+        <attr name="isFastScrollingEnabled" format="boolean" />
     </declare-styleable>
 </resources>
