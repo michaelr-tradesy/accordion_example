@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @name AccordionViewAdapter
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as the adapter for our Accordion View
@@ -21,7 +20,6 @@ internal class AccordionViewAdapter(
 
     // region Properties
     /**
-     * @name isAnimationEnabled
      * @author Coach Roebuck
      * @since 2.18
      * If this is enabled, animation will be performed at the time we bind to each view holder.
@@ -29,7 +27,6 @@ internal class AccordionViewAdapter(
     var isAnimationEnabled: Boolean = true
 
     /**
-     * @name isAlternatingRowBackgroundColorsEnabled
      * @author Coach Roebuck
      * @since 2.18
      * If this is enabled, the background of every other view holder will be a different color.
@@ -38,7 +35,6 @@ internal class AccordionViewAdapter(
     private var isAlternatingRowBackgroundColorsEnabled: Boolean = false
 
     /**
-     * @name isCurrentlyAlternatingBackgroundColor
      * @author Coach Roebuck
      * @since 2.18
      * This indicator is controlled by this adapter, and discloses the current status
@@ -47,7 +43,6 @@ internal class AccordionViewAdapter(
     private var isCurrentlyAlternatingBackgroundColor = true
 
     /**
-     * @name sectionMap
      * @author Coach Roebuck
      * @since 2.18
      * This is our alphabet section.
@@ -63,7 +58,6 @@ internal class AccordionViewAdapter(
     // region RecyclerView.Adapter Override Methods
 
     /**
-     * @name onCreateViewHolder
      * @author Coach Roebuck
      * @since 2.18
      * Binds the given View to the position.
@@ -93,7 +87,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name onBindViewHolder
      * @author Coach Roebuck
      * @since 2.18
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -113,7 +106,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name onViewDetachedFromWindow
      * @author Coach Roebuck
      * @since 2.18
      * Called when a view created by this adapter has been detached from its window.
@@ -124,7 +116,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getItemCount
      * @author Coach Roebuck
      * @since 2.18
      * Returns the total number of items in the data set held by the adapter.
@@ -136,7 +127,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getItemViewType
      * @author Coach Roebuck
      * @since 2.18
      * Returns the View type defined by the adapter.
@@ -181,7 +171,7 @@ internal class AccordionViewAdapter(
      *         If this key is not found,
      */
     fun getPositionForKey(key: String): Int {
-        if(sectionMap.containsKey(key)) {
+        if (sectionMap.containsKey(key)) {
             sectionMap[key]?.let { return it } ?: return -1
         }
         return -1
@@ -200,7 +190,7 @@ internal class AccordionViewAdapter(
      *         constrained to fall within the adapter bounds
      */
     override fun getPositionForSection(sectionIndex: Int): Int {
-        return if(sectionIndex > -1 && sectionIndex < sectionMap.size) {
+        return if (sectionIndex > -1 && sectionIndex < sectionMap.size) {
             val key = sectionMap.keys.sorted().toList()[sectionIndex]
             sectionMap[key] ?: -1
         } else {
@@ -227,7 +217,7 @@ internal class AccordionViewAdapter(
     override fun getSectionForPosition(position: Int): Int {
         var output = -1
         sectionMap.map {
-            if(position > it.value) {
+            if (position > it.value) {
                 output++
             }
         }
@@ -241,7 +231,6 @@ internal class AccordionViewAdapter(
     // region Public Methods
 
     /**
-     * @name setUsesAlternatingRowBackgroundColors
      * @author Coach Roebuck
      * @since 2.18
      * Sets the ability to use alternating row background colors.
@@ -253,7 +242,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name indexOf
      * @author Coach Roebuck
      * @since 2.18
      * Returns the index of the specified model, relative to the list.
@@ -290,7 +278,6 @@ internal class AccordionViewAdapter(
     // region Private Methods
 
     /**
-     * @name getNextLayout
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and retrieves the layout that is mapped to the specified type.
@@ -312,7 +299,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getNextViewHolder
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and retrieves the view holder that is mapped to the specified type.
@@ -337,7 +323,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name setBackgroundForModelView
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and sets the background for the current view holder.
@@ -371,7 +356,7 @@ internal class AccordionViewAdapter(
                     this.isCurrentlyAlternatingBackgroundColor = false
                 }
                 AccordionViewModel.Type.Expandable,
-                AccordionViewModel.Type.TwoColumnHeader  -> {
+                AccordionViewModel.Type.TwoColumnHeader -> {
                     this.isCurrentlyAlternatingBackgroundColor = true
                 }
                 else -> {
@@ -398,7 +383,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name canSetDefaultBackground
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and determines whether the default background can be set
@@ -414,7 +398,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name indexOfChild
      * @author Coach Roebuck
      * @since 2.18
      * @param accordionViewModel the specified AccordionViewModel that we are trying to find.
@@ -443,7 +426,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getTotalItems
      * @author Coach Roebuck
      * @since 2.18
      * Count the total number of VISIBLE items.
@@ -466,7 +448,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name totalChildren
      * @author Coach Roebuck
      * @since 2.18
      * Count the total number of VISIBLE child items of the specified model.
@@ -484,7 +465,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getModel
      * @author Coach Roebuck
      * @since 2.18
      * Get the model at the specified position of VISIBLE items
@@ -512,7 +492,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name getModelChild
      * @author Coach Roebuck
      * @since 2.18
      * Get the model at the specified position of VISIBLE items
@@ -551,7 +530,6 @@ internal class AccordionViewAdapter(
     }
 
     /**
-     * @name isExpanded
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and determines the current expanded status of the specified model.

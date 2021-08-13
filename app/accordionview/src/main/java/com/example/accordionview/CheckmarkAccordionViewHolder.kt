@@ -19,7 +19,6 @@ internal class CheckmarkAccordionViewHolder(v: View) : TextAccordionViewHolder(v
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.
@@ -37,7 +36,6 @@ internal class CheckmarkAccordionViewHolder(v: View) : TextAccordionViewHolder(v
     }
 
     /**
-     * @name setcheckmark
      * @author Coach Roebuck
      * @since 2.18
      * Set the is checked indicator of the checkmark.

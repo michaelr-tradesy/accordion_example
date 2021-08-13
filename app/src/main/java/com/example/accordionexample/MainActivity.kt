@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setFastScrollingEnabled(false)
         accordionView.setTotalColumns(1)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.onListChanged(list)
@@ -107,7 +106,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
         accordionView.setAlphabeticalScrollingEnabled(true)
-        accordionView.setFastScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.setTotalColumns(1)
         accordionView.onListChanged(list)
@@ -117,7 +115,6 @@ class MainActivity : AppCompatActivity() {
     private fun onGroupList(item: MenuItem) {
         accordionView.setTotalColumns(1)
         accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setFastScrollingEnabled(true)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
         val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
         accordionView.onListChanged(list)
@@ -127,7 +124,6 @@ class MainActivity : AppCompatActivity() {
     private fun onColorList(item: MenuItem) {
         accordionView.setTotalColumns(3)
         accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setFastScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
         val list: List<AccordionViewModel> = generateRandomColorModels(
             size = abs(Random.nextInt()) % 100
@@ -139,7 +135,6 @@ class MainActivity : AppCompatActivity() {
     private fun onChartList(item: MenuItem) {
         val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
         accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setFastScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.setTotalColumns(1)
         accordionView.onListChanged(list)
@@ -149,7 +144,6 @@ class MainActivity : AppCompatActivity() {
     private fun onGenerateRegularList(item: MenuItem) {
         val list = generateRandomModels(abs(Random.nextInt()) % 100)
         accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setFastScrollingEnabled(true)
         accordionView.setTotalColumns(1)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
         accordionView.onListChanged(list)

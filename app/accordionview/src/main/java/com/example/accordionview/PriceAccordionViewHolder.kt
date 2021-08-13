@@ -7,7 +7,6 @@ import java.text.NumberFormat
 import java.util.*
 
 /**
- * @name AccordionView
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our accordion view. For models in the list that are expandable,
@@ -25,8 +24,8 @@ internal class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v)
 
     init {
         val textWatcher = AccordionTextWatcher(actionBlock = {
-            if(!isRangeSliderUpdating) {
-            updateRangeSlider()
+            if (!isRangeSliderUpdating) {
+                updateRangeSlider()
             }
         })
         rangeSlider = v.findViewById(R.id.rangeSlider)
@@ -35,7 +34,6 @@ internal class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v)
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.
@@ -103,7 +101,8 @@ internal class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v)
         try {
             val value = minPrice.text.toString().toInt()
             if (isValueWithinRange(value)
-                && value <= rangeSlider.values[1]) {
+                && value <= rangeSlider.values[1]
+            ) {
                 min = value
                 mustNotify = true
             }
@@ -113,7 +112,8 @@ internal class PriceAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v)
         try {
             val value = maxPrice.text.toString().toInt()
             if (isValueWithinRange(value)
-                && value >= rangeSlider.values[0]) {
+                && value >= rangeSlider.values[0]
+            ) {
                 max = value
                 mustNotify = true
             }

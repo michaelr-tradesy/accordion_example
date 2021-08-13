@@ -12,7 +12,6 @@ import kotlin.math.roundToInt
 
 
 /**
- * @name ColorAccordionViewHolder
  * @author Coach Roebuck
  * @since 2.18
  * This method uses the details of the model, which is passed in as a parameter,
@@ -33,7 +32,6 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * This method uses the details of the model, which is passed in as a parameter,
@@ -60,7 +58,7 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
             imageView.imageTintList = bgColorTint
             imageView.background = BitmapDrawable(context.resources, bitmap)
         }
-        val checkMarkResource = if(model?.isMultiColored == true) {
+        val checkMarkResource = if (model?.isMultiColored == true) {
             R.drawable.ic_baseline_check_white_24
         } else {
             R.drawable.ic_baseline_check_green_24
@@ -75,7 +73,6 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
     }
 
     /**
-     * @name drawVisualImage
      * @author Coach Roebuck
      * @since 2.18
      * This method is responsible for dynamically drawing a solid circle
@@ -109,7 +106,6 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
     }
 
     /**
-     * @name drawMultiColoredImage
      * @author Coach Roebuck
      * @since 2.18
      * This method is responsible for dynamically drawing a multi-colored circle
@@ -166,7 +162,6 @@ internal class ColorAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
     }
 
     /**
-     * @name getIntFromColor
      * @author Coach Roebuck
      * @since 2.18
      * This method is responsible for retrieving the numerical representation of the RGB color

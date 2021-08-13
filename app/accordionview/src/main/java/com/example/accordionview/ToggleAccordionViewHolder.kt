@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ToggleButton
 
 /**
- * @name ToggleAccordionViewHolder
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our accordion view. For models in the list that are expandable,
@@ -30,7 +29,6 @@ internal class ToggleAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.

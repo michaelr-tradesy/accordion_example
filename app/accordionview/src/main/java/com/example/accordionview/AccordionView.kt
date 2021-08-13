@@ -4,21 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
-import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @name AccordionView
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our accordion view. For models in the list that are expandable,
@@ -33,7 +30,6 @@ class AccordionView @JvmOverloads constructor(
 
     // region Properties
 
-    private lateinit var dynamicFastScroller: DynamicFastScroller
     private lateinit var accordionViewAdapter: AccordionViewAdapter
     private lateinit var alphabetViewAdapter: AlphabetViewAdapter
     private lateinit var currentLetterImageView: ImageView
@@ -42,7 +38,6 @@ class AccordionView @JvmOverloads constructor(
     private lateinit var alphabetRecyclerView: RecyclerView
     private var callback: (AccordionViewModel) -> Unit = { _ -> }
     private var isAlphabeticalScrollingEnabled = false
-    private var isFastScrollingEnabled = false
     private var list: MutableList<AccordionViewModel> = mutableListOf()
     private var selAccordionViewModel: AccordionViewModel? = null
     private var totalColumns: Int = 1
@@ -61,7 +56,6 @@ class AccordionView @JvmOverloads constructor(
     // region Public Methods
 
     /**
-     * @name refresh
      * @author Coach Roebuck
      * @since 2.18
      * This method lives up to its name, and notifies the adapter that the data set has changed.
@@ -72,7 +66,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name onListChanged
      * @author Coach Roebuck
      * @since 2.18
      * This method replaces the existing list with a new one, then refreshes the view.
@@ -85,7 +78,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name setCallback
      * @author Coach Roebuck
      * @since 2.18
      * This serves as the setter for the callback property.
@@ -96,7 +88,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name setTotalColumns
      * @author Coach Roebuck
      * @since 2.18
      * Sets the total number of columns in each row.
@@ -109,7 +100,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name setAlphabeticalScrollingEnabled
      * @author Coach Roebuck
      * @since 2.18
      * If set, will enable alphabetical scrolling.
@@ -123,24 +113,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name setAlphabeticalScrollingEnabled
-     * @author Coach Roebuck
-     * @since 2.18
-     * If set, will enable fast scrolling through the list.
-     * @param value If set, will enable alphabetical scrolling.
-     */
-    @SuppressLint("VisibleForTests")
-    fun setFastScrollingEnabled(value: Boolean) {
-        this.isFastScrollingEnabled = value
-        if (value) {
-            dynamicFastScroller.attachToRecyclerView(recyclerView)
-        } else {
-            dynamicFastScroller.detachFromRecyclerView()
-        }
-    }
-
-    /**
-     * @name setIsAlternatingRowBackgroundColorsEnabled
      * @author Coach Roebuck
      * @since 2.18
      * Sets the ability to use alternating row background colors.
@@ -160,7 +132,6 @@ class AccordionView @JvmOverloads constructor(
     // region Private Methods
 
     /**
-     * @name bindView
      * @author Coach Roebuck
      * @since 2.18
      * Binds this component to the corresponding layout, that should have already been inflated.
@@ -173,7 +144,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name instantiateDependencies
      * @author Coach Roebuck
      * @since 2.18
      * All dependencies of this component will be instantiated here.
@@ -181,11 +151,9 @@ class AccordionView @JvmOverloads constructor(
     private fun instantiateDependencies() {
         instantiateAlphabetAdapter()
         instantiateContentAdapter()
-        initDynamicFastScrolling()
     }
 
     /**
-     * @name instantiateListAdapter
      * @author Coach Roebuck
      * @since 2.18
      * Instantiates an instance of teh Alphabet View Adapter
@@ -197,7 +165,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name instantiateContentAdapter
      * @author Coach Roebuck
      * @since 2.18
      * Instantiates an instance of teh "Content" View Adapter
@@ -208,44 +175,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name instantiateContentAdapter
-     * @author Coach Roebuck
-     * @since 2.18
-     * This method lives up to its name and instantiates and instance
-     * of the fast scrolling component.
-     * We are allowed to dynamically enable and disable this capability;
-     * hence, the name "Dynamic Fast Scrolling."
-     */
-    @SuppressLint("VisibleForTests")
-    private fun initDynamicFastScrolling() {
-        val verticalThumbDrawable =
-            ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable) as StateListDrawable
-        val verticalTrackDrawable =
-            ContextCompat.getDrawable(this.context, R.drawable.line_drawable)
-        val horizontalThumbDrawable =
-            ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable) as StateListDrawable
-        val horizontalTrackDrawable =
-            ContextCompat.getDrawable(this.context, R.drawable.thumb_drawable)
-        val resources = context.resources
-
-        verticalTrackDrawable?.let { vTrackDrawable ->
-            horizontalTrackDrawable?.let { hTrackDrawable ->
-                dynamicFastScroller = DynamicFastScroller(
-                    recyclerView,
-                    verticalThumbDrawable,
-                    vTrackDrawable,
-                    horizontalThumbDrawable,
-                    hTrackDrawable,
-                    resources.getDimensionPixelSize(R.dimen.fastscroll_default_thickness),
-                    resources.getDimensionPixelSize(R.dimen.fastscroll_minimum_range),
-                    resources.getDimensionPixelOffset(R.dimen.fastscroll_margin)
-                )
-            }
-        }
-    }
-
-    /**
-     * @name loadViewAttributes
      * @author Coach Roebuck
      * @since 2.18
      * This method retrieves the custom style attributes defined in order to set the recycler view.
@@ -277,18 +206,11 @@ class AccordionView @JvmOverloads constructor(
                 false
             )
         )
-        setFastScrollingEnabled(
-            typedArray.getBoolean(
-                R.styleable.AccordionView_isFastScrollingEnabled,
-                false
-            )
-        )
 
         typedArray.recycle()
     }
 
     /**
-     * @name onCreate
      * @author Coach Roebuck
      * @since 2.18
      * This method lives up to its name and sets the attributes for the "content" list.
@@ -301,7 +223,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name setLayoutManagerForContentList
      * @author Coach Roebuck
      * @since 2.18
      * Lives up to its name and sets the layout manager using the value of the total columns field.
@@ -325,7 +246,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name initAttributesForAlphabetList
      * @author Coach Roebuck
      * @since 2.18
      * This method lives up to its name and sets the attributes for the alphabet list.
@@ -349,7 +269,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name initAttributesForAlphabetList
      * @author Coach Roebuck
      * @since 2.18
      * This method will highlight the letter of the alphabet that is currently hovered on.
@@ -406,7 +325,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name onLetterSelected
      * @author Coach Roebuck
      * @since 2.18
      * The current letter will be set. Whether or not it will be displayed will depend on
@@ -419,7 +337,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name scrollToAlphabeticSection
      * @author Coach Roebuck
      * @since 2.18
      * If alphabetical scrolling is enabled,
@@ -433,7 +350,6 @@ class AccordionView @JvmOverloads constructor(
     }
 
     /**
-     * @name onModelSelected
      * @author Coach Roebuck
      * @since 2.18
      * This method serves as the callback method to respond to the selected option in the list.

@@ -4,8 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 
 /**
- * @name AccordionTextWatcher
- * @author Coach Roebuck
+  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our text watcher for changes to text from within the accordion view.
  */

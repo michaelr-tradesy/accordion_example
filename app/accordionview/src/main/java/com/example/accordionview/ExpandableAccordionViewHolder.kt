@@ -5,7 +5,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 
 /**
- * @name ExpandableAccordionViewHolder
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our accordion view. For models in the list that are expandable,
@@ -26,7 +25,6 @@ internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.
@@ -47,7 +45,6 @@ internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.

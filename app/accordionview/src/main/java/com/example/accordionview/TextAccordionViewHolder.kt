@@ -5,7 +5,6 @@ import android.widget.TextView
 
 
 /**
- * @name DefaultAccordionViewHolder
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as the abstract view holder.
@@ -23,7 +22,6 @@ internal constructor(v: View) : DefaultAccordionViewHolder(v) {
     }
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.

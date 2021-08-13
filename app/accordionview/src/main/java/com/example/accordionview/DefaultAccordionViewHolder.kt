@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 /**
- * @name DefaultAccordionViewHolder
- * @author Coach Roebuck
+  * @author Coach Roebuck
  * @since 2.18
  * This component serves as the abstract view holder.
  * All view holders that subclass this component must contain a title and details in the view.
@@ -27,8 +26,7 @@ internal constructor(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     /**
-     * @name bind
-     * @author Coach Roebuck
+          * @author Coach Roebuck
      * @since 2.18
      * The model and callback parameters are saved for future use.
      * "Fade-In" animation is also performed, if enabled on this component.
@@ -48,8 +46,7 @@ internal constructor(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     /**
-     * @name onViewClicked
-     * @author Coach Roebuck
+          * @author Coach Roebuck
      * @since 2.18
      * This serves as the callback method for the onClick event.
      */
@@ -61,8 +58,7 @@ internal constructor(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     /**
-     * @name setAnimation
-     * @author Coach Roebuck
+          * @author Coach Roebuck
      * @since 2.18
      * Sets and starts a fade-in animation on this view.
      */
@@ -73,8 +69,7 @@ internal constructor(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     /**
-     * @name clearAnimation
-     * @author Coach Roebuck
+          * @author Coach Roebuck
      * @since 2.18
      * Clears the animation previously set on this view.
      */

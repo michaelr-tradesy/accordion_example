@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="AncestryTheme_Fuji_Light">
+    <style name="AppTheme" parent="Fuji_Light">
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
@@ -252,7 +252,7 @@
         <item name="buttonBarNegativeButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
     </style>
-    <style name="AncestryTheme_Bamboo_Dark" parent="AncestryTheme.Dark">
+    <style name="Bamboo_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:textColorLink">@color/Bamboo2</item>
@@ -261,7 +261,7 @@
         <item name="colorButtonNormal">@color/Bamboo4</item>
         <item name="colorPrimary">@color/Bamboo4</item>
     </style>
-    <style name="AncestryTheme_Bamboo_Light" parent="AncestryTheme.Light">
+    <style name="Bamboo_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Bamboo3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Bamboo5</item>
@@ -272,7 +272,7 @@
         <item name="colorPrimary">@color/Bamboo3</item>
         <item name="colorPrimaryDark">@color/Bamboo5</item>
     </style>
-    <style name="AncestryTheme_Coral_Dark" parent="AncestryTheme.Dark">
+    <style name="Coral_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Coral4</item>
@@ -281,7 +281,7 @@
         <item name="colorButtonNormal">@color/Coral4</item>
         <item name="colorPrimary">@color/Coral4</item>
     </style>
-    <style name="AncestryTheme_Coral_Light" parent="AncestryTheme.Light">
+    <style name="Coral_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Coral3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Coral5</item>
@@ -292,7 +292,7 @@
         <item name="colorPrimary">@color/Coral3</item>
         <item name="colorPrimaryDark">@color/Coral5</item>
     </style>
-    <style name="AncestryTheme_Fuji_Dark" parent="AncestryTheme.Dark">
+    <style name="Fuji_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Fuji4</item>
@@ -301,7 +301,7 @@
         <item name="colorButtonNormal">@color/Fuji4</item>
         <item name="colorPrimary">@color/Fuji4</item>
     </style>
-    <style name="AncestryTheme_Fuji_Light" parent="AncestryTheme.Light">
+    <style name="Fuji_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Fuji3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Fuji5</item>
@@ -312,7 +312,7 @@
         <item name="colorPrimary">@color/Fuji3</item>
         <item name="colorPrimaryDark">@color/Fuji5</item>
     </style>
-    <style name="AncestryTheme_Jade_Dark" parent="AncestryTheme.Dark">
+    <style name="Jade_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Jade4</item>
@@ -321,7 +321,7 @@
         <item name="colorButtonNormal">@color/Jade4</item>
         <item name="colorPrimary">@color/Jade4</item>
     </style>
-    <style name="AncestryTheme_Jade_Light" parent="AncestryTheme.Light">
+    <style name="Jade_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Jade3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Jade5</item>
@@ -332,7 +332,7 @@
         <item name="colorPrimary">@color/Jade3</item>
         <item name="colorPrimaryDark">@color/Jade5</item>
     </style>
-    <style name="AncestryTheme_Orenji_Dark" parent="AncestryTheme.Dark">
+    <style name="Orenji_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Orenji4</item>
@@ -341,7 +341,7 @@
         <item name="colorButtonNormal">@color/Orenji4</item>
         <item name="colorPrimary">@color/Orenji4</item>
     </style>
-    <style name="AncestryTheme_Orenji_Light" parent="AncestryTheme.Light">
+    <style name="Orenji_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Orenji3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Orenji5</item>
@@ -352,7 +352,7 @@
         <item name="colorPrimary">@color/Orenji3</item>
         <item name="colorPrimaryDark">@color/Orenji5</item>
     </style>
-    <style name="AncestryTheme_Sakura_Dark" parent="AncestryTheme.Dark">
+    <style name="Sakura_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Sakura4</item>
@@ -361,7 +361,7 @@
         <item name="colorButtonNormal">@color/Sakura4</item>
         <item name="colorPrimary">@color/Sakura4</item>
     </style>
-    <style name="AncestryTheme_Sakura_Light" parent="AncestryTheme.Light">
+    <style name="Sakura_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sakura3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Sakura5</item>
@@ -372,7 +372,7 @@
         <item name="colorPrimary">@color/Sakura3</item>
         <item name="colorPrimaryDark">@color/Sakura5</item>
     </style>
-    <style name="AncestryTheme_Sun_Dark" parent="AncestryTheme.Dark">
+    <style name="Sun_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sun5</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sun4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Sun4</item>
@@ -382,7 +382,7 @@
         <item name="colorPrimary">@color/Sun5</item>
         <item name="colorPrimaryDark">@color/Sun5dark</item>
     </style>
-    <style name="AncestryTheme_Sun_Light" parent="AncestryTheme.Light">
+    <style name="Sun_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sun5</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sun4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Sun5</item>
@@ -393,7 +393,7 @@
         <item name="colorPrimary">@color/Sun5</item>
         <item name="colorPrimaryDark">@color/Sun5dark</item>
     </style>
-    <style name="AncestryTheme_Wave_Dark" parent="AncestryTheme.Dark">
+    <style name="Wave_Dark" parent="AncestryTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Wave4</item>
@@ -402,7 +402,7 @@
         <item name="colorButtonNormal">@color/Wave4</item>
         <item name="colorPrimary">@color/Wave4</item>
     </style>
-    <style name="AncestryTheme_Wave_Light" parent="AncestryTheme.Light">
+    <style name="Wave_Light" parent="AncestryTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Wave3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Wave5</item>

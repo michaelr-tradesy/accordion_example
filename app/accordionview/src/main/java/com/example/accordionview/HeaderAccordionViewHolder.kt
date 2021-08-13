@@ -7,7 +7,6 @@ internal class HeaderAccordionViewHolder(v: View) : DefaultAccordionViewHolder(v
     private val title: TextView = v.findViewById(R.id.title)
 
     /**
-     * @name bind
      * @author Coach Roebuck
      * @since 2.18
      * Bind the view with the contents of the specified model.

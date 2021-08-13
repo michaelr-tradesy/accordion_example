@@ -1,9 +1,6 @@
 package com.example.accordionview
 
-import java.lang.StringBuilder
-
 /**
- * @name AccordionView
  * @author Coach Roebuck
  * @since 2.18
  * This component serves as our accordion view. For models in the list that are expandable,
@@ -80,14 +77,17 @@ data class AccordionViewModel(
          * A category, consisting of a title, details, and a disclosure indicator.
          */
         Category,
+
         /**
          * A Check box view, consisting of a title, details, and a check box.
          */
         Checkbox,
+
         /**
          * A Check mark view, consisting of a title, details, and a check mark image.
          */
         Checkmark,
+
         /**
          * A Color, consisting of a title, details,
          * and an image containing a circle using the specified background color.
@@ -95,18 +95,22 @@ data class AccordionViewModel(
          * then a multi-colored image is displayed instead.
          */
         Color,
+
         /**
          * A category, consisting of a title and details.
          */
         Text,
+
         /**
          * A category, consisting of a title and details.
          */
         Header,
+
         /**
          * A category, consisting of a title details, and a UP / DOWN arrow indicator.
          */
         Expandable,
+
         /**
          * If this type is specified,
          * A range slider is displayed. Individual text fields are also provided
@@ -114,6 +118,7 @@ data class AccordionViewModel(
          * No title and details will be displayed.
          */
         Price,
+
         /**
          * A Toggle, consisting of a title, details, and an ON/OFF toggle button.
          */
@@ -137,7 +142,7 @@ data class AccordionViewModel(
         companion object {
             fun valueOf(index: Int): Type {
                 values().map {
-                    if(index == it.ordinal) {
+                    if (index == it.ordinal) {
                         return it
                     }
                 }
