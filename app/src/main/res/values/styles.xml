@@ -148,7 +148,7 @@
         <item name="android:colorAccent">@color/Black</item>
         <item name="android:textColorPrimary">@color/Black</item>
     </style>
-    <style name="AncestryTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+    <style name="MyTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="appBackground">@color/Pebble2</item>
         <item name="contentBackground">@color/Pebble4</item>
 
@@ -169,16 +169,16 @@
         <item name="android:borderlessButtonStyle">@style/AuxButtonBorderless</item>
         <item name="toolbarStyle">@style/toolbarStyleDark</item>
 
-        <item name="buttonBarButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
     </style>
-    <style name="AncestryTheme.Dark.ButtonBarStyle" parent="@style/Base.AlertDialog.AppCompat.Light">
+    <style name="MyTheme.Dark.ButtonBarStyle" parent="@style/Base.AlertDialog.AppCompat.Light">
         <item name="android:background">#00000000</item>
         <item name="android:textColor">@drawable/btn_light_colors</item>
     </style>
-    <style name="AncestryTheme.Dark.WithActionBar" parent="Theme.AppCompat">
+    <style name="MyTheme.Dark.WithActionBar" parent="Theme.AppCompat">
         <item name="appBackground">@color/Pebble2</item>
         <item name="contentBackground">@color/Pebble4</item>
 
@@ -199,12 +199,12 @@
         <item name="android:borderlessButtonStyle">@style/AuxButtonBorderless</item>
         <item name="toolbarStyle">@style/toolbarStyleDark</item>
 
-        <item name="buttonBarButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/AncestryTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyTheme.Dark.ButtonBarStyle</item>
     </style>
-    <style name="AncestryTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MyTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="appBackground">@color/Sand1</item>
         <item name="contentBackground">@color/White</item>
 
@@ -221,16 +221,16 @@
         <item name="android:borderlessButtonStyle">@style/AuxButtonBorderless</item>
         <item name="toolbarStyle">@style/toolbarStyleLight</item>
 
-        <item name="buttonBarButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
     </style>
-    <style name="AncestryTheme.Light.ButtonBarStyle" parent="@style/Base.AlertDialog.AppCompat.Light">
+    <style name="MyTheme.Light.ButtonBarStyle" parent="@style/Base.AlertDialog.AppCompat.Light">
         <item name="android:background">#00000000</item>
         <item name="android:textColor">@drawable/btn_dark_colors</item>
     </style>
-    <style name="AncestryTheme.Light.WithActionBar" parent="Theme.AppCompat.Light">
+    <style name="MyTheme.Light.WithActionBar" parent="Theme.AppCompat.Light">
         <item name="appBackground">@color/Sand1</item>
         <item name="contentBackground">@color/White</item>
 
@@ -247,12 +247,12 @@
         <item name="android:borderlessButtonStyle">@style/AuxButtonBorderless</item>
         <item name="toolbarStyle">@style/toolbarStyleLight</item>
 
-        <item name="buttonBarButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/AncestryTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MyTheme.Light.ButtonBarStyle</item>
     </style>
-    <style name="Bamboo_Dark" parent="AncestryTheme.Dark">
+    <style name="Bamboo_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:textColorLink">@color/Bamboo2</item>
@@ -261,7 +261,7 @@
         <item name="colorButtonNormal">@color/Bamboo4</item>
         <item name="colorPrimary">@color/Bamboo4</item>
     </style>
-    <style name="Bamboo_Light" parent="AncestryTheme.Light">
+    <style name="Bamboo_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Bamboo3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Bamboo4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Bamboo5</item>
@@ -272,7 +272,7 @@
         <item name="colorPrimary">@color/Bamboo3</item>
         <item name="colorPrimaryDark">@color/Bamboo5</item>
     </style>
-    <style name="Coral_Dark" parent="AncestryTheme.Dark">
+    <style name="Coral_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Coral4</item>
@@ -281,7 +281,7 @@
         <item name="colorButtonNormal">@color/Coral4</item>
         <item name="colorPrimary">@color/Coral4</item>
     </style>
-    <style name="Coral_Light" parent="AncestryTheme.Light">
+    <style name="Coral_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Coral3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Coral4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Coral5</item>
@@ -292,7 +292,7 @@
         <item name="colorPrimary">@color/Coral3</item>
         <item name="colorPrimaryDark">@color/Coral5</item>
     </style>
-    <style name="Fuji_Dark" parent="AncestryTheme.Dark">
+    <style name="Fuji_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Fuji4</item>
@@ -301,7 +301,7 @@
         <item name="colorButtonNormal">@color/Fuji4</item>
         <item name="colorPrimary">@color/Fuji4</item>
     </style>
-    <style name="Fuji_Light" parent="AncestryTheme.Light">
+    <style name="Fuji_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Fuji3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Fuji4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Fuji5</item>
@@ -312,7 +312,7 @@
         <item name="colorPrimary">@color/Fuji3</item>
         <item name="colorPrimaryDark">@color/Fuji5</item>
     </style>
-    <style name="Jade_Dark" parent="AncestryTheme.Dark">
+    <style name="Jade_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Jade4</item>
@@ -321,7 +321,7 @@
         <item name="colorButtonNormal">@color/Jade4</item>
         <item name="colorPrimary">@color/Jade4</item>
     </style>
-    <style name="Jade_Light" parent="AncestryTheme.Light">
+    <style name="Jade_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Jade3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Jade4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Jade5</item>
@@ -332,7 +332,7 @@
         <item name="colorPrimary">@color/Jade3</item>
         <item name="colorPrimaryDark">@color/Jade5</item>
     </style>
-    <style name="Orenji_Dark" parent="AncestryTheme.Dark">
+    <style name="Orenji_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Orenji4</item>
@@ -341,7 +341,7 @@
         <item name="colorButtonNormal">@color/Orenji4</item>
         <item name="colorPrimary">@color/Orenji4</item>
     </style>
-    <style name="Orenji_Light" parent="AncestryTheme.Light">
+    <style name="Orenji_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Orenji3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Orenji4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Orenji5</item>
@@ -352,7 +352,7 @@
         <item name="colorPrimary">@color/Orenji3</item>
         <item name="colorPrimaryDark">@color/Orenji5</item>
     </style>
-    <style name="Sakura_Dark" parent="AncestryTheme.Dark">
+    <style name="Sakura_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Sakura4</item>
@@ -361,7 +361,7 @@
         <item name="colorButtonNormal">@color/Sakura4</item>
         <item name="colorPrimary">@color/Sakura4</item>
     </style>
-    <style name="Sakura_Light" parent="AncestryTheme.Light">
+    <style name="Sakura_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sakura3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sakura4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Sakura5</item>
@@ -372,7 +372,7 @@
         <item name="colorPrimary">@color/Sakura3</item>
         <item name="colorPrimaryDark">@color/Sakura5</item>
     </style>
-    <style name="Sun_Dark" parent="AncestryTheme.Dark">
+    <style name="Sun_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sun5</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sun4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Sun4</item>
@@ -382,7 +382,7 @@
         <item name="colorPrimary">@color/Sun5</item>
         <item name="colorPrimaryDark">@color/Sun5dark</item>
     </style>
-    <style name="Sun_Light" parent="AncestryTheme.Light">
+    <style name="Sun_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Sun5</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Sun4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Sun5</item>
@@ -393,7 +393,7 @@
         <item name="colorPrimary">@color/Sun5</item>
         <item name="colorPrimaryDark">@color/Sun5dark</item>
     </style>
-    <style name="Wave_Dark" parent="AncestryTheme.Dark">
+    <style name="Wave_Dark" parent="MyTheme.Dark">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlNormal" ns1:targetApi="lollipop">@color/Wave4</item>
@@ -402,7 +402,7 @@
         <item name="colorButtonNormal">@color/Wave4</item>
         <item name="colorPrimary">@color/Wave4</item>
     </style>
-    <style name="Wave_Light" parent="AncestryTheme.Light">
+    <style name="Wave_Light" parent="MyTheme.Light">
         <item name="android:colorButtonNormal" ns1:targetApi="lollipop">@color/Wave3</item>
         <item name="android:colorControlActivated" ns1:targetApi="lollipop">@color/Wave4</item>
         <item name="android:colorControlHighlight" ns1:targetApi="lollipop">@color/Wave5</item>
