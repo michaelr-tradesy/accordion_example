@@ -366,9 +366,10 @@ class AccordionView @JvmOverloads constructor(
 
         callback.invoke(accordionViewModel)
 
-        if (accordionViewModel.canCollapse && accordionViewModel.isExpanded) {
+        if (accordionViewModel.type == AccordionViewModel.Type.Expandable
+            && accordionViewModel.isExpanded) {
             accordionViewAdapter.notifyItemRangeInserted(index + 1, totalChildren)
-        } else if (accordionViewModel.canCollapse) {
+        } else if (accordionViewModel.type == AccordionViewModel.Type.Expandable) {
             accordionViewAdapter.notifyItemRangeRemoved(index + 1, totalChildren)
         }
     }

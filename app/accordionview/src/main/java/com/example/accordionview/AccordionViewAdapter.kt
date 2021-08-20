@@ -362,18 +362,14 @@ internal class AccordionViewAdapter(
                 }
                 else -> {
                     if (this.isCurrentlyAlternatingBackgroundColor) {
-                        holder.itemView.setBackgroundColor(
-                            ContextCompat.getColor(
-                                holder.itemView.context,
-                                R.color.header_background_alternate_color_2
-                            )
+                        holder.itemView.background = ContextCompat.getDrawable(
+                            holder.itemView.context,
+                            R.drawable.view_holder_alternate_background_2
                         )
                     } else {
-                        holder.itemView.setBackgroundColor(
-                            ContextCompat.getColor(
-                                holder.itemView.context,
-                                R.color.header_background_alternate_color_1
-                            )
+                        holder.itemView.background = ContextCompat.getDrawable(
+                            holder.itemView.context,
+                            R.drawable.view_holder_alternate_background_1
                         )
                     }
                     this.isCurrentlyAlternatingBackgroundColor =
