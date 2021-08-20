@@ -3,7 +3,7 @@
     <item android:id="@+id/alphabetical_view" android:title="@string/alphabetical_view" />
     <item android:id="@+id/chart_view" android:title="@string/chart_view" />
     <item android:id="@+id/color_view" android:title="@string/color_view" />
+    <item android:id="@+id/expandable_view" android:title="@string/expandable_view" />
     <item android:id="@+id/group_view" android:title="@string/group_view" />
-    <item android:id="@+id/regular_view" android:title="@string/regular_view" />
     <item android:id="@+id/two_column_view" android:title="@string/two_column_view" />
 </menu>

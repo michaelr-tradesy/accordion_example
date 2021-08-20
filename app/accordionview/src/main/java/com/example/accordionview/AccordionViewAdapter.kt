@@ -1,6 +1,5 @@
 package com.example.accordionview
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -291,6 +290,7 @@ internal class AccordionViewAdapter(
         AccordionViewModel.Type.Color -> R.layout.view_holder_accordion_color
         AccordionViewModel.Type.Header -> R.layout.view_holder_accordion_header
         AccordionViewModel.Type.Expandable -> R.layout.view_holder_accordion_expandable
+        AccordionViewModel.Type.Label -> R.layout.view_holder_accordion_text
         AccordionViewModel.Type.Price -> R.layout.view_holder_accordion_price
         AccordionViewModel.Type.Text -> R.layout.view_holder_accordion_text
         AccordionViewModel.Type.Toggle -> R.layout.view_holder_accordion_toggle
@@ -313,8 +313,9 @@ internal class AccordionViewAdapter(
         AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
         AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)
         AccordionViewModel.Type.Color -> ColorAccordionViewHolder(view)
-        AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
         AccordionViewModel.Type.Expandable -> ExpandableAccordionViewHolder(view)
+        AccordionViewModel.Type.Header -> HeaderAccordionViewHolder(view)
+        AccordionViewModel.Type.Label -> LabelAccordionViewHolder(view)
         AccordionViewModel.Type.Price -> PriceAccordionViewHolder(view)
         AccordionViewModel.Type.Text -> TextAccordionViewHolder(view)
         AccordionViewModel.Type.Toggle -> ToggleAccordionViewHolder(view)
@@ -364,11 +365,16 @@ internal class AccordionViewAdapter(
                         holder.itemView.setBackgroundColor(
                             ContextCompat.getColor(
                                 holder.itemView.context,
-                                R.color.header_background_alternate_color
+                                R.color.header_background_alternate_color_2
                             )
                         )
                     } else {
-                        holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                        holder.itemView.setBackgroundColor(
+                            ContextCompat.getColor(
+                                holder.itemView.context,
+                                R.color.header_background_alternate_color_1
+                            )
+                        )
                     }
                     this.isCurrentlyAlternatingBackgroundColor =
                         !this.isCurrentlyAlternatingBackgroundColor

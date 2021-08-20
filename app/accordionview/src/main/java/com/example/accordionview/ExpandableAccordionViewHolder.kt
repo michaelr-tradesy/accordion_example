@@ -13,12 +13,14 @@ import androidx.core.content.ContextCompat
 internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(v) {
 
     private val disclosure: ImageView = v.findViewById(R.id.disclosure)
+    private var canCollapse: Boolean = true
 
     init {
         privateCallback = {
             model?.let {
                 if (model?.children?.isNotEmpty() == true) {
-                    setDisclosure(!it.isExpanded, it.canCollapse)
+                    it.isExpanded = !it.isExpanded
+                    setDisclosure(!it.isExpanded)
                 }
             }
         }
@@ -38,10 +40,9 @@ internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(
         callback: (model: AccordionViewModel) -> Unit
     ) {
         super.bind(model, callback)
-        setDisclosure(
-            false,
-            model?.canCollapse == true && model.children.isNotEmpty()
-        )
+
+        this.canCollapse = model?.children?.isNotEmpty() == true
+        setDisclosure(model?.isExpanded == true)
     }
 
     /**
@@ -52,9 +53,8 @@ internal class ExpandableAccordionViewHolder(v: View) : TextAccordionViewHolder(
      * after the corresponding parent method has been invoked.
      * @param isExpanded if set, will load the down arrow image.
      * Otherwise, the up arrow image will be loaded
-     * @param canCollapse if set, will hide the disclosure.
      */
-    private fun setDisclosure(isExpanded: Boolean, canCollapse: Boolean) {
+    private fun setDisclosure(isExpanded: Boolean) {
         val resourceId = if (isExpanded) {
             android.R.drawable.arrow_down_float
         } else {

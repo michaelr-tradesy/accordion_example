@@ -2,7 +2,7 @@
 <resources>
     <color name="header_foreground_color">#FF808080</color>
     <color name="header_background_color">#FFC0C0C0</color>
-    <color name="header_background_alternate_color">#E1E1E1</color>
+    <color name="header_background_alternate_color_2">#E1E1E1</color>
 
     <style name="AppTheme" parent="Platform.MaterialComponents"/>
 

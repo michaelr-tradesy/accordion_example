@@ -97,9 +97,9 @@ data class AccordionViewModel(
         Color,
 
         /**
-         * A category, consisting of a title and details.
+         * A category, consisting of a title details, and a UP / DOWN arrow indicator.
          */
-        Text,
+        Expandable,
 
         /**
          * A category, consisting of a title and details.
@@ -107,9 +107,9 @@ data class AccordionViewModel(
         Header,
 
         /**
-         * A category, consisting of a title details, and a UP / DOWN arrow indicator.
+         * A category, consisting of a title and details. User interaction is disabled.
          */
-        Expandable,
+        Label,
 
         /**
          * If this type is specified,
@@ -118,6 +118,11 @@ data class AccordionViewModel(
          * No title and details will be displayed.
          */
         Price,
+
+        /**
+         * A category, consisting of a title and details. This view is selectable.
+         */
+        Text,
 
         /**
          * A Toggle, consisting of a title, details, and an ON/OFF toggle button.

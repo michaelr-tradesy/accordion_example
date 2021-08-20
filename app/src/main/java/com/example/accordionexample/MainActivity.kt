@@ -7,9 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.accordionview.AccordionView
 import com.example.accordionview.AccordionViewModel
+import org.apache.commons.lang3.RandomStringUtils
 import kotlin.math.abs
 import kotlin.random.Random
-import org.apache.commons.lang3.RandomStringUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,13 +26,10 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val list: List<AccordionViewModel> = generateRandomModels(
-            abs(Random.nextInt()) % 100
-        )
         accordionView.setCallback {
             println("Accordion View Model Selected: $it")
         }
-        accordionView.onListChanged(list)
+        onAlphabeticalList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,47 +42,69 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        showToast(item.title.toString())
+
         when (item.itemId) {
-            R.id.regular_view -> {
-                onGenerateRegularList(item)
+            R.id.alphabetical_view -> {
+                onAlphabeticalList()
             }
             R.id.chart_view -> {
-                onChartList(item)
+                onChartList()
             }
             R.id.color_view -> {
-                onColorList(item)
+                onColorList()
+            }
+            R.id.expandable_view -> {
+                onExpandableList()
             }
             R.id.group_view -> {
-                onGroupList(item)
-            }
-            R.id.alphabetical_view -> {
-                onAlphabeticalList(item)
+                onGroupList()
             }
             R.id.two_column_view -> {
-                onTwoColumnList(item)
+                onTwoColumnList()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun onTwoColumnList(item: MenuItem) {
-        val size: Int = abs(Random.nextInt()) % 100
+    private fun onTwoColumnList() {
         val list: MutableList<AccordionViewModel> = mutableListOf(
-            generateRandomModel(type = AccordionViewModel.Type.TwoColumnHeader)
+            AccordionViewModel(
+                title = "US",
+                type = AccordionViewModel.Type.TwoColumnHeader,
+                subTitle = "EU",
+            )
         )
 
-        for (i in 1..size) {
-            list.add(generateRandomModel(type = AccordionViewModel.Type.TwoColumnDetails))
+        val rows: List<Pair<String, String>> = listOf(
+            Pair("4.5 - 5", "35"),
+            Pair("5.5 - 6", "36"),
+            Pair("6.5 - 7", "37"),
+            Pair("7.5 - 8", "38"),
+            Pair("8.5 - 9", "39"),
+            Pair("9.5 - 10", "40"),
+            Pair("10.5 - 11", "41"),
+            Pair("11.5 - 12", "42"),
+            Pair("12.5 - 13", "43"),
+        )
+        rows.map { row ->
+            list.add(
+                AccordionViewModel(
+                    title = row.first,
+                    type = AccordionViewModel.Type.TwoColumnDetails,
+                    subTitle = row.second,
+                )
+            )
         }
 
         accordionView.setAlphabeticalScrollingEnabled(false)
         accordionView.setTotalColumns(1)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.onListChanged(list)
-        showToast(item.title.toString())
     }
 
-    private fun onAlphabeticalList(item: MenuItem) {
+    private fun onAlphabeticalList() {
         val list: MutableList<AccordionViewModel> = mutableListOf()
         val alphabet = getString(R.string.alphabet).toCharArray()
 
@@ -109,19 +128,51 @@ class MainActivity : AppCompatActivity() {
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.setTotalColumns(1)
         accordionView.onListChanged(list)
-        showToast(item.title.toString())
     }
 
-    private fun onGroupList(item: MenuItem) {
+    private fun onExpandableList() {
+        val size = abs(Random.nextInt()) % 100
+        val list: MutableList<AccordionViewModel> = mutableListOf()
+        val type = AccordionViewModel.Type.Expandable
+        val types: MutableList<AccordionViewModel.Type> = mutableListOf(
+            AccordionViewModel.Type.Category,
+            AccordionViewModel.Type.Checkbox,
+            AccordionViewModel.Type.Checkmark,
+            AccordionViewModel.Type.Label,
+            AccordionViewModel.Type.Price,
+            AccordionViewModel.Type.Text,
+            AccordionViewModel.Type.Toggle,
+        )
+
+        for (i in 1..size) {
+            val totalChildren = abs(Random.nextInt()) % 10
+            val children: MutableList<AccordionViewModel> = mutableListOf()
+
+            for (j in 1..totalChildren) {
+                val index = abs(Random.nextInt() % types.size)
+
+                children.add(generateRandomModel(type = types[index]))
+            }
+
+            list.add(generateRandomModel(children = children, type = type))
+        }
+
+        accordionView.setTotalColumns(1)
+        accordionView.setAlphabeticalScrollingEnabled(false)
+        accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
+        accordionView.onListChanged(list)
+
+    }
+
+    private fun onGroupList() {
         accordionView.setTotalColumns(1)
         accordionView.setAlphabeticalScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
         val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
         accordionView.onListChanged(list)
-        showToast(item.title.toString())
     }
 
-    private fun onColorList(item: MenuItem) {
+    private fun onColorList() {
         accordionView.setTotalColumns(3)
         accordionView.setAlphabeticalScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
@@ -129,25 +180,14 @@ class MainActivity : AppCompatActivity() {
             size = abs(Random.nextInt()) % 100
         )
         accordionView.onListChanged(list)
-        showToast(item.title.toString())
     }
 
-    private fun onChartList(item: MenuItem) {
+    private fun onChartList() {
         val list = generateGroupRandomModels(abs(Random.nextInt()) % 100)
         accordionView.setAlphabeticalScrollingEnabled(false)
         accordionView.setIsAlternatingRowBackgroundColorsEnabled(true)
         accordionView.setTotalColumns(1)
         accordionView.onListChanged(list)
-        showToast(item.title.toString())
-    }
-
-    private fun onGenerateRegularList(item: MenuItem) {
-        val list = generateRandomModels(abs(Random.nextInt()) % 100)
-        accordionView.setAlphabeticalScrollingEnabled(false)
-        accordionView.setTotalColumns(1)
-        accordionView.setIsAlternatingRowBackgroundColorsEnabled(false)
-        accordionView.onListChanged(list)
-        showToast(item.title.toString())
     }
 
     private fun showToast(text: String) {
@@ -237,13 +277,13 @@ class MainActivity : AppCompatActivity() {
         subDetailsPrefix: String? = "",
     ): AccordionViewModel {
         val title = titlePrefix +
-            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+                RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
         val details = detailsPrefix +
-            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
+                RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
         val subTitle = subTitlePrefix +
-            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
+                RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 12 + 1)
         val subDetails = subDetailsPrefix +
-            RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
+                RandomStringUtils.randomAlphabetic(abs(Random.nextInt()) % 128)
         return AccordionViewModel(
             title = title,
             details = details,

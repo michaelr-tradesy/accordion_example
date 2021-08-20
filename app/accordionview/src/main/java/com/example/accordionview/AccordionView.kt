@@ -359,7 +359,6 @@ class AccordionView @JvmOverloads constructor(
      */
     private fun onModelSelected(accordionViewModel: AccordionViewModel) {
         selAccordionViewModel = accordionViewModel
-        accordionViewModel.isExpanded = !accordionViewModel.isExpanded
         accordionViewAdapter.isAnimationEnabled = accordionViewModel.isExpanded
 
         val index = accordionViewAdapter.indexOf(accordionViewModel)
