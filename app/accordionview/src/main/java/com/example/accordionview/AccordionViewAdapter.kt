@@ -284,6 +284,7 @@ internal class AccordionViewAdapter(
      * @return A numeric value representing a layout that is mapped to each type.
      */
     private fun getNextLayout(type: AccordionViewModel.Type) = when (type) {
+        AccordionViewModel.Type.Button -> R.layout.view_holder_accordion_text
         AccordionViewModel.Type.Category -> R.layout.view_holder_accordion_category
         AccordionViewModel.Type.Checkbox -> R.layout.view_holder_accordion_checkbox
         AccordionViewModel.Type.Checkmark -> R.layout.view_holder_accordion_checkmark
@@ -309,6 +310,7 @@ internal class AccordionViewAdapter(
         type: AccordionViewModel.Type,
         view: View
     ) = when (type) {
+        AccordionViewModel.Type.Button -> ButtonAccordionViewHolder(view)
         AccordionViewModel.Type.Category -> CategoryAccordionViewHolder(view)
         AccordionViewModel.Type.Checkbox -> CheckboxAccordionViewHolder(view)
         AccordionViewModel.Type.Checkmark -> CheckmarkAccordionViewHolder(view)

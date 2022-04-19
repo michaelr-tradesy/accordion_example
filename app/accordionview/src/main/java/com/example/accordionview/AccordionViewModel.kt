@@ -74,6 +74,11 @@ data class AccordionViewModel(
 
     enum class Type {
         /**
+         * A category, consisting of a title and details. This view is selectable.
+         */
+        Button,
+
+        /**
          * A category, consisting of a title, details, and a disclosure indicator.
          */
         Category,
@@ -120,7 +125,7 @@ data class AccordionViewModel(
         Price,
 
         /**
-         * A category, consisting of a title and details. This view is selectable.
+         * A category, consisting of a title and details and an edit text field.
          */
         Text,
 
